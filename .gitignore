@@ -15,6 +15,7 @@
 *.so
 *.dylib
 *.dll
+*.pdb
 
 # Fortran module files
 *.mod
@@ -70,9 +71,10 @@ Saved/*
 # Compiled source files for the engine to use
 Intermediate/*
 Plugins/*/Intermediate/*
-!Plugins/VOX4U/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
-Plugins/VOX4U/Binaries/Win64/UE4Editor-VOX4U.pdb
-Plugins/VOX4U/Binaries/Win64/UE4Editor-VOX4UEditor.pdb
+
+#Adding VOX4U binaries
+!UE4Editor-VOX4U.dll
+!UE4Editor-VOX4UEditor.dll
