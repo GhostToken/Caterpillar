@@ -48,6 +48,7 @@ SourceArt/**/*.tga
 # Binary Files
 Binaries/*
 Plugins/*/Binaries/*
+!Plugins/VOX4U/Binaries/*
 
 # Builds
 Build/*
@@ -69,6 +70,9 @@ Saved/*
 # Compiled source files for the engine to use
 Intermediate/*
 Plugins/*/Intermediate/*
+!Plugins/VOX4U/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+Plugins/VOX4U/Binaries/Win64/UE4Editor-VOX4U.pdb
+Plugins/VOX4U/Binaries/Win64/UE4Editor-VOX4UEditor.pdb
