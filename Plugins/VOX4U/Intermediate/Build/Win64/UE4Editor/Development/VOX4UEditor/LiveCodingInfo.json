@@ -1,0 +1,25 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.VOX4UEditor.cpp.obj": [
+			"MonotoneMesh.cpp.obj",
+			"SVoxOptionWidget.cpp.obj",
+			"Vox.cpp.obj",
+			"VOX4UEditor.cpp.obj",
+			"VoxAssetImportData.cpp.obj",
+			"VoxelActorFactory.cpp.obj",
+			"VoxelAssetTypeActions.cpp.obj",
+			"VoxelFactory.cpp.obj",
+			"VoxelThumbnailRenderer.cpp.obj",
+			"VoxImportOption.cpp.obj"
+		],
+		"Module.VOX4UEditor.gen.cpp.obj": [
+			"VOX4UEditor.init.gen.cpp.obj",
+			"VoxAssetImportData.gen.cpp.obj",
+			"VoxelActorFactory.gen.cpp.obj",
+			"VoxelFactory.gen.cpp.obj",
+			"VoxelThumbnailRenderer.gen.cpp.obj",
+			"VoxImportOption.gen.cpp.obj"
+		]
+	}
+}

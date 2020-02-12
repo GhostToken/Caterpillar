@@ -1,0 +1,14 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UE4Editor-VOX4U.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"I:\Caterpillar\Intermediate\Build\Win64\CaterpillarEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.obj"
+"I:\Caterpillar\Plugins\VOX4U\Intermediate\Build\Win64\UE4Editor\Development\VOX4U\Module.VOX4U.cpp.obj"
+"I:\Caterpillar\Plugins\VOX4U\Intermediate\Build\Win64\UE4Editor\Development\VOX4U\Module.VOX4U.gen.cpp.obj"
+"I:\Caterpillar\Plugins\VOX4U\Intermediate\Build\Win64\UE4Editor\Development\VOX4U\Default.rc2.res"
+/OUT:"I:\Caterpillar\Plugins\VOX4U\Intermediate\Build\Win64\UE4Editor\Development\VOX4U\UE4Editor-VOX4U.lib"
+/INCLUDE:IMPLEMENT_MODULE_VOX4U

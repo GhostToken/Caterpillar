@@ -1,0 +1,17 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.VOX4U.cpp.obj": [
+			"VOX4U.cpp.obj",
+			"Voxel.cpp.obj",
+			"VoxelActor.cpp.obj",
+			"VoxelComponent.cpp.obj"
+		],
+		"Module.VOX4U.gen.cpp.obj": [
+			"VOX4U.init.gen.cpp.obj",
+			"Voxel.gen.cpp.obj",
+			"VoxelActor.gen.cpp.obj",
+			"VoxelComponent.gen.cpp.obj"
+		]
+	}
+}
