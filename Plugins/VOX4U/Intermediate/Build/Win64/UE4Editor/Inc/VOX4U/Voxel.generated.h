@@ -13,10 +13,10 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define VOX4U_Voxel_generated_h
 
-#define I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_SPARSE_DATA
-#define I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_RPC_WRAPPERS
-#define I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_RPC_WRAPPERS_NO_PURE_DECLS
-#define I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_INCLASS_NO_PURE_DECLS \
+#define Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_SPARSE_DATA
+#define Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_RPC_WRAPPERS
+#define Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_RPC_WRAPPERS_NO_PURE_DECLS
+#define Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUVoxel(); \
 	friend struct Z_Construct_UClass_UVoxel_Statics; \
@@ -25,7 +25,7 @@ public: \
 	DECLARE_SERIALIZER(UVoxel)
 
 
-#define I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_INCLASS \
+#define Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_INCLASS \
 private: \
 	static void StaticRegisterNativesUVoxel(); \
 	friend struct Z_Construct_UClass_UVoxel_Statics; \
@@ -34,7 +34,7 @@ public: \
 	DECLARE_SERIALIZER(UVoxel)
 
 
-#define I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_STANDARD_CONSTRUCTORS \
+#define Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UVoxel(const FObjectInitializer& ObjectInitializer); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UVoxel) \
@@ -47,7 +47,7 @@ private: \
 public:
 
 
-#define I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_ENHANCED_CONSTRUCTORS \
+#define Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API UVoxel(UVoxel&&); \
@@ -58,28 +58,28 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UVoxel); \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(UVoxel)
 
 
-#define I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_PRIVATE_PROPERTY_OFFSET
-#define I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_14_PROLOG
-#define I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_GENERATED_BODY_LEGACY \
+#define Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_PRIVATE_PROPERTY_OFFSET
+#define Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_14_PROLOG
+#define Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_PRIVATE_PROPERTY_OFFSET \
-	I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_SPARSE_DATA \
-	I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_RPC_WRAPPERS \
-	I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_INCLASS \
-	I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_STANDARD_CONSTRUCTORS \
+	Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_PRIVATE_PROPERTY_OFFSET \
+	Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_SPARSE_DATA \
+	Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_RPC_WRAPPERS \
+	Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_INCLASS \
+	Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_GENERATED_BODY \
+#define Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_PRIVATE_PROPERTY_OFFSET \
-	I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_SPARSE_DATA \
-	I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_RPC_WRAPPERS_NO_PURE_DECLS \
-	I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_INCLASS_NO_PURE_DECLS \
-	I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_ENHANCED_CONSTRUCTORS \
+	Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_PRIVATE_PROPERTY_OFFSET \
+	Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_SPARSE_DATA \
+	Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_RPC_WRAPPERS_NO_PURE_DECLS \
+	Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_INCLASS_NO_PURE_DECLS \
+	Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h_17_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -87,7 +87,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> VOX4U_API UClass* StaticClass<class UVoxel>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h
+#define CURRENT_FILE_ID Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_Voxel_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

@@ -15,8 +15,8 @@ struct FTransform;
 #endif
 #define VOX4U_VoxelComponent_generated_h
 
-#define I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_SPARSE_DATA
-#define I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_RPC_WRAPPERS \
+#define Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_SPARSE_DATA
+#define Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_RPC_WRAPPERS \
  \
 	DECLARE_FUNCTION(execGetVoxelTransform) \
 	{ \
@@ -55,7 +55,7 @@ struct FTransform;
 	}
 
 
-#define I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_RPC_WRAPPERS_NO_PURE_DECLS \
+#define Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_RPC_WRAPPERS_NO_PURE_DECLS \
  \
 	DECLARE_FUNCTION(execGetVoxelTransform) \
 	{ \
@@ -94,7 +94,7 @@ struct FTransform;
 	}
 
 
-#define I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_INCLASS_NO_PURE_DECLS \
+#define Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUVoxelComponent(); \
 	friend struct Z_Construct_UClass_UVoxelComponent_Statics; \
@@ -103,7 +103,7 @@ public: \
 	DECLARE_SERIALIZER(UVoxelComponent)
 
 
-#define I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_INCLASS \
+#define Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_INCLASS \
 private: \
 	static void StaticRegisterNativesUVoxelComponent(); \
 	friend struct Z_Construct_UClass_UVoxelComponent_Statics; \
@@ -112,7 +112,7 @@ public: \
 	DECLARE_SERIALIZER(UVoxelComponent)
 
 
-#define I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_STANDARD_CONSTRUCTORS \
+#define Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UVoxelComponent(const FObjectInitializer& ObjectInitializer); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UVoxelComponent) \
@@ -125,7 +125,7 @@ private: \
 public:
 
 
-#define I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_ENHANCED_CONSTRUCTORS \
+#define Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API UVoxelComponent(UVoxelComponent&&); \
@@ -136,7 +136,7 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UVoxelComponent); \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(UVoxelComponent)
 
 
-#define I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_PRIVATE_PROPERTY_OFFSET \
+#define Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_PRIVATE_PROPERTY_OFFSET \
 	FORCEINLINE static uint32 __PPO__CellBounds() { return STRUCT_OFFSET(UVoxelComponent, CellBounds); } \
 	FORCEINLINE static uint32 __PPO__bHideUnbeheld() { return STRUCT_OFFSET(UVoxelComponent, bHideUnbeheld); } \
 	FORCEINLINE static uint32 __PPO__Mesh() { return STRUCT_OFFSET(UVoxelComponent, Mesh); } \
@@ -145,27 +145,27 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UVoxelComponent); \
 	FORCEINLINE static uint32 __PPO__InstancedStaticMeshComponents() { return STRUCT_OFFSET(UVoxelComponent, InstancedStaticMeshComponents); }
 
 
-#define I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_16_PROLOG
-#define I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_GENERATED_BODY_LEGACY \
+#define Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_16_PROLOG
+#define Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_PRIVATE_PROPERTY_OFFSET \
-	I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_SPARSE_DATA \
-	I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_RPC_WRAPPERS \
-	I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_INCLASS \
-	I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_STANDARD_CONSTRUCTORS \
+	Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_PRIVATE_PROPERTY_OFFSET \
+	Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_SPARSE_DATA \
+	Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_RPC_WRAPPERS \
+	Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_INCLASS \
+	Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_GENERATED_BODY \
+#define Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_PRIVATE_PROPERTY_OFFSET \
-	I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_SPARSE_DATA \
-	I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_RPC_WRAPPERS_NO_PURE_DECLS \
-	I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_INCLASS_NO_PURE_DECLS \
-	I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_ENHANCED_CONSTRUCTORS \
+	Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_PRIVATE_PROPERTY_OFFSET \
+	Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_SPARSE_DATA \
+	Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_RPC_WRAPPERS_NO_PURE_DECLS \
+	Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_INCLASS_NO_PURE_DECLS \
+	Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h_19_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -173,7 +173,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> VOX4U_API UClass* StaticClass<class UVoxelComponent>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID I__VOX4U_HostProject_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h
+#define CURRENT_FILE_ID Caterpillar_Plugins_VOX4U_Source_VOX4U_Public_VoxelComponent_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
