@@ -8,6 +8,7 @@
 
 UVoxImportOption::UVoxImportOption()
 	: VoxImportType(EVoxImportType::StaticMesh)
+	, ColorType(EVoxColorType::VertexColor)
 	, bImportXForward(true)
 	, bImportXYCenter(true)
 	, Scale(10.f)

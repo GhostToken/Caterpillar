@@ -29,7 +29,9 @@ struct FVox
 	TMap<FIntVector, uint8> Voxel;
 	/** Palette */
 	TArray<FColor> Palette;
-
+	/** Material index, for material swap */
+	TArray<int> MaterialIndex;
+	
 public:
 
 	/** Create empty vox data */
@@ -40,6 +42,8 @@ public:
 
 	/** Import vox data from archive */
 	bool Import(FArchive& Ar, const UVoxImportOption* ImportOption);
+
+	void PostImport(const UVoxImportOption* ImportOption);
 
 	/** Create FRawMesh from Voxel */
 	bool CreateRawMesh(FRawMesh& OutRawMesh, const UVoxImportOption* ImportOption) const;
