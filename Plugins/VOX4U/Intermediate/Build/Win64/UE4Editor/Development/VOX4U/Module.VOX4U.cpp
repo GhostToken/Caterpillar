@@ -3,3 +3,4 @@
 #include "I:/Caterpillar/Plugins/VOX4U/Source/VOX4U/Private/Voxel.cpp"
 #include "I:/Caterpillar/Plugins/VOX4U/Source/VOX4U/Private/VoxelActor.cpp"
 #include "I:/Caterpillar/Plugins/VOX4U/Source/VOX4U/Private/VoxelComponent.cpp"
+#include "I:/Caterpillar/Plugins/VOX4U/Source/VOX4U/Private/VoxSettings.cpp"

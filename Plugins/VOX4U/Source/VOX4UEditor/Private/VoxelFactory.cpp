@@ -19,6 +19,7 @@
 #include "Voxel.h"
 #include "AssetRegistryModule.h"
 #include "VoxSettings.h"
+#include "ContentBrowserModule.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogVoxelFactory, Log, All)
 
@@ -294,7 +295,6 @@ UDestructibleMesh* UVoxelFactory::CreateDestructibleMesh(UObject* InParent, FNam
 	Vox->CreateOptimizedRawMesh(RawMesh, ImportOption);
 	
 	UStaticMesh* RootMesh = NewObject<UStaticMesh>();
-
 	UMaterialInterface* Material;
 	if (ImportOption->ColorImportType == EVoxColorType::VertexColor)
 	{
@@ -316,27 +316,23 @@ UDestructibleMesh* UVoxelFactory::CreateDestructibleMesh(UObject* InParent, FNam
 	
 	BuildStaticMesh(RootMesh, RawMesh);
 	DestructibleMesh->SourceStaticMesh = RootMesh;
-
-	TArray<FRawMesh> RawMeshes;
-	Vox->CreateRawMeshes(RawMeshes, ImportOption);
+	DestructibleMesh->bHasVertexColors = true;
+	
 	TArray<UStaticMesh*> FractureMeshes;
-	for (FRawMesh& ItRawMesh : RawMeshes)
+	UStaticMesh* FructureMesh = NewObject<UStaticMesh>();
+	FructureMesh->StaticMaterials.Add(FStaticMaterial(Material));
+	for (const FColorSwap& Swap : ImportOption->ColorSwaps)
 	{
-		UStaticMesh* FructureMesh = NewObject<UStaticMesh>();
-		
-		FructureMesh->StaticMaterials.Add(FStaticMaterial(Material));
-		for (const FColorSwap& Swap : ImportOption->ColorSwaps)
+		if (Swap.Material != nullptr)
 		{
-			if (Swap.Material != nullptr)
-			{
-				FructureMesh->StaticMaterials.Add(FStaticMaterial(Swap.Material));
-			}
+			FructureMesh->StaticMaterials.Add(FStaticMaterial(Swap.Material));
 		}
-		
-		BuildStaticMesh(FructureMesh, ItRawMesh);
-		FractureMeshes.Add(FructureMesh);
 	}
+
+	BuildStaticMesh(FructureMesh, RawMesh);
+	FractureMeshes.Add(FructureMesh);
 	DestructibleMesh->SetupChunksFromStaticMeshes(FractureMeshes);
+
 	BuildDestructibleMeshFromFractureSettings(*DestructibleMesh, nullptr);
 	DestructibleMesh->SourceStaticMesh = nullptr;
 	DestructibleMesh->AssetImportData->Update(Vox->Filename);
@@ -415,19 +411,17 @@ UStaticMesh* UVoxelFactory::BuildStaticMesh(UStaticMesh* OutStaticMesh, FRawMesh
 
 UMaterialInterface* UVoxelFactory::CreateMaterial(UObject* InParent, FName &InName, EObjectFlags Flags, const FVox* Vox) const
 {
-	UMaterial* Material = NewObject<UMaterial>(InParent, *FString::Printf(TEXT("%s_MT"), *InName.GetPlainNameString()), Flags | RF_Public);
+	UMaterial* Reference = UVoxSettings::Get().TextureBaseMaterial.Get();
+	UMaterialInstanceConstant* MaterialInstance = NewObject<UMaterialInstanceConstant>(InParent, *FString::Printf(TEXT("%s_MI"), *InName.GetPlainNameString()), Flags | RF_Public);
+	MaterialInstance->SetParentEditorOnly(Reference);
+	
 	UTexture2D* Texture = NewObject<UTexture2D>(InParent, *FString::Printf(TEXT("%s_TX"), *InName.GetPlainNameString()), Flags | RF_Public);
 	if (Vox->CreateTexture(Texture, ImportOption))
 	{
-		Material->TwoSided = false;
-		Material->SetShadingModel(MSM_DefaultLit);
-		UMaterialExpressionTextureSample* Expression = NewObject<UMaterialExpressionTextureSample>(Material);
-		Material->Expressions.Add(Expression);
-		Material->BaseColor.Expression = Expression;
-		Expression->Texture = Texture;
-		Material->PostEditChange();
+		MaterialInstance->SetTextureParameterValueEditorOnly(TEXT("Palette"), Texture);
+		MaterialInstance->PostEditChange();
 	}
-	return Material;
+	return MaterialInstance;
 }
 
 UMaterialInterface* UVoxelFactory::CreateVertexColorMaterial(UObject* InParent, FName &InName, EObjectFlags Flags) const

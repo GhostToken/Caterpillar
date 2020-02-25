@@ -308,10 +308,20 @@ void MonotoneMesh::WriteWedge(FRawMesh& OutRawMesh, bool Face, int Index1, int I
 	OutRawMesh.WedgeIndices.Add(Face ? Index1 : Index2);
 	OutRawMesh.WedgeIndices.Add(Face ? Index2 : Index1);
 	OutRawMesh.WedgeIndices.Add(Index3);
-	FVector2D UV(((double)ColorIndex + 0.5) / 256.0, 0.5);
-	OutRawMesh.WedgeTexCoords[0].Add(UV);
-	OutRawMesh.WedgeTexCoords[0].Add(UV);
-	OutRawMesh.WedgeTexCoords[0].Add(UV);
+	float X = ColorIndex % 16;
+	float Y = ColorIndex / 16;
+	if(Face)
+	{
+		OutRawMesh.WedgeTexCoords[0].Add(FVector2D((X + 0.75f) / 16.0f, (Y + 0.75f) / 16.0f));
+		OutRawMesh.WedgeTexCoords[0].Add(FVector2D((X + 0.75f) / 16.0f, (Y + 0.25f) / 16.0f));
+		OutRawMesh.WedgeTexCoords[0].Add(FVector2D((X + 0.25f) / 16.0f, (Y + 0.25f) / 16.0f));
+	}
+	else
+	{
+		OutRawMesh.WedgeTexCoords[0].Add(FVector2D((X + 0.25f) / 16.0f, (Y + 0.25f) / 16.0f));
+		OutRawMesh.WedgeTexCoords[0].Add(FVector2D((X + 0.25f) / 16.0f, (Y + 0.75f) / 16.0f));
+		OutRawMesh.WedgeTexCoords[0].Add(FVector2D((X + 0.75f) / 16.0f, (Y + 0.75f) / 16.0f));
+	}
 	OutRawMesh.FaceMaterialIndices.Add(MaterialIndex);
 	OutRawMesh.FaceSmoothingMasks.Add(0);
 }
@@ -326,10 +336,20 @@ void MonotoneMesh::WriteWedgeVertexColor(FRawMesh& OutRawMesh, bool Face, int In
 	OutRawMesh.WedgeIndices.Add(Face ? Index1 : Index2);
 	OutRawMesh.WedgeIndices.Add(Face ? Index2 : Index1);
 	OutRawMesh.WedgeIndices.Add(Index3);
-	FVector2D UV(((double)ColorIndex + 0.5) / 256.0, 0.5);
-	OutRawMesh.WedgeTexCoords[0].Add(UV);
-	OutRawMesh.WedgeTexCoords[0].Add(UV);
-	OutRawMesh.WedgeTexCoords[0].Add(UV);
+	float X = ColorIndex % 16;
+	float Y = ColorIndex / 16;
+	if (Face)
+	{
+		OutRawMesh.WedgeTexCoords[0].Add(FVector2D((X + 0.75f) / 16.0f, (Y + 0.75f) / 16.0f));
+		OutRawMesh.WedgeTexCoords[0].Add(FVector2D((X + 0.75f) / 16.0f, (Y + 0.25f) / 16.0f));
+		OutRawMesh.WedgeTexCoords[0].Add(FVector2D((X + 0.25f) / 16.0f, (Y + 0.25f) / 16.0f));
+	}
+	else
+	{
+		OutRawMesh.WedgeTexCoords[0].Add(FVector2D((X + 0.25f) / 16.0f, (Y + 0.25f) / 16.0f));
+		OutRawMesh.WedgeTexCoords[0].Add(FVector2D((X + 0.25f) / 16.0f, (Y + 0.75f) / 16.0f));
+		OutRawMesh.WedgeTexCoords[0].Add(FVector2D((X + 0.75f) / 16.0f, (Y + 0.75f) / 16.0f));
+	}
 	OutRawMesh.WedgeColors.Add(Color);
 	OutRawMesh.WedgeColors.Add(Color);
 	OutRawMesh.WedgeColors.Add(Color);

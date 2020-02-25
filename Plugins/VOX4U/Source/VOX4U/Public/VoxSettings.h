@@ -41,6 +41,9 @@ class VOX4U_API UVoxSettings : public UDeveloperSettings
 	UPROPERTY(EditAnywhere, config, Category = VOX)
 		TSoftObjectPtr<UMaterial> VertexGlobalMaterial;
 	
+	UPROPERTY(EditAnywhere, config, Category = VOX)
+		TSoftObjectPtr<UMaterial> TextureBaseMaterial;
+	
 
 	static const UVoxSettings& Get()
 	{
