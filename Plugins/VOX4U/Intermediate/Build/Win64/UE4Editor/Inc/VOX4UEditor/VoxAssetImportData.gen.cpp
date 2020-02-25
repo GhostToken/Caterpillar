@@ -17,6 +17,9 @@ void EmptyLinkFunctionForGeneratedCodeVoxAssetImportData() {}
 	VOX4UEDITOR_API UClass* Z_Construct_UClass_UVoxAssetImportData();
 	ENGINE_API UClass* Z_Construct_UClass_UAssetImportData();
 	UPackage* Z_Construct_UPackage__Script_VOX4UEditor();
+	VOX4U_API UScriptStruct* Z_Construct_UScriptStruct_FColorSwap();
+	VOX4U_API UEnum* Z_Construct_UEnum_VOX4U_EVoxColorType();
+	VOX4U_API UEnum* Z_Construct_UEnum_VOX4U_EVoxImportType();
 // End Cross Module References
 	void UVoxAssetImportData::StaticRegisterNativesUVoxAssetImportData()
 	{
@@ -45,6 +48,26 @@ void EmptyLinkFunctionForGeneratedCodeVoxAssetImportData() {}
 #endif
 		static void NewProp_bImportXForward_SetBit(void* Obj);
 		static const UE4CodeGen_Private::FBoolPropertyParams NewProp_bImportXForward;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_UseCommonVertexColorMaterial_MetaData[];
+#endif
+		static void NewProp_UseCommonVertexColorMaterial_SetBit(void* Obj);
+		static const UE4CodeGen_Private::FBoolPropertyParams NewProp_UseCommonVertexColorMaterial;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_ColorSwaps_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FArrayPropertyParams NewProp_ColorSwaps;
+		static const UE4CodeGen_Private::FStructPropertyParams NewProp_ColorSwaps_Inner;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_ColorImportType_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FEnumPropertyParams NewProp_ColorImportType;
+		static const UE4CodeGen_Private::FUnsizedIntPropertyParams NewProp_ColorImportType_Underlying;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_VoxImportType_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FEnumPropertyParams NewProp_VoxImportType;
+		static const UE4CodeGen_Private::FUnsizedIntPropertyParams NewProp_VoxImportType_Underlying;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UE4CodeGen_Private::FClassParams ClassParams;
@@ -90,10 +113,52 @@ void EmptyLinkFunctionForGeneratedCodeVoxAssetImportData() {}
 		((UVoxAssetImportData*)Obj)->bImportXForward = 1;
 	}
 	const UE4CodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_bImportXForward = { "bImportXForward", nullptr, (EPropertyFlags)0x0010000000000001, UE4CodeGen_Private::EPropertyGenFlags::Bool , RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(uint8), sizeof(UVoxAssetImportData), &Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_bImportXForward_SetBit, METADATA_PARAMS(Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_bImportXForward_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_bImportXForward_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_UseCommonVertexColorMaterial_MetaData[] = {
+		{ "Category", "Generic" },
+		{ "ModuleRelativePath", "Private/VoxAssetImportData.h" },
+	};
+#endif
+	void Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_UseCommonVertexColorMaterial_SetBit(void* Obj)
+	{
+		((UVoxAssetImportData*)Obj)->UseCommonVertexColorMaterial = 1;
+	}
+	const UE4CodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_UseCommonVertexColorMaterial = { "UseCommonVertexColorMaterial", nullptr, (EPropertyFlags)0x0010000000000001, UE4CodeGen_Private::EPropertyGenFlags::Bool | UE4CodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(UVoxAssetImportData), &Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_UseCommonVertexColorMaterial_SetBit, METADATA_PARAMS(Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_UseCommonVertexColorMaterial_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_UseCommonVertexColorMaterial_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_ColorSwaps_MetaData[] = {
+		{ "Category", "Generic" },
+		{ "ModuleRelativePath", "Private/VoxAssetImportData.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_ColorSwaps = { "ColorSwaps", nullptr, (EPropertyFlags)0x0010000000000001, UE4CodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UVoxAssetImportData, ColorSwaps), METADATA_PARAMS(Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_ColorSwaps_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_ColorSwaps_MetaData)) };
+	const UE4CodeGen_Private::FStructPropertyParams Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_ColorSwaps_Inner = { "ColorSwaps", nullptr, (EPropertyFlags)0x0000000000000000, UE4CodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UScriptStruct_FColorSwap, METADATA_PARAMS(nullptr, 0) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_ColorImportType_MetaData[] = {
+		{ "Category", "Generic" },
+		{ "ModuleRelativePath", "Private/VoxAssetImportData.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FEnumPropertyParams Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_ColorImportType = { "ColorImportType", nullptr, (EPropertyFlags)0x0010000000000001, UE4CodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UVoxAssetImportData, ColorImportType), Z_Construct_UEnum_VOX4U_EVoxColorType, METADATA_PARAMS(Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_ColorImportType_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_ColorImportType_MetaData)) };
+	const UE4CodeGen_Private::FUnsizedIntPropertyParams Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_ColorImportType_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, METADATA_PARAMS(nullptr, 0) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_VoxImportType_MetaData[] = {
+		{ "Category", "Generic" },
+		{ "ModuleRelativePath", "Private/VoxAssetImportData.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FEnumPropertyParams Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_VoxImportType = { "VoxImportType", nullptr, (EPropertyFlags)0x0010000000000001, UE4CodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UVoxAssetImportData, VoxImportType), Z_Construct_UEnum_VOX4U_EVoxImportType, METADATA_PARAMS(Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_VoxImportType_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_VoxImportType_MetaData)) };
+	const UE4CodeGen_Private::FUnsizedIntPropertyParams Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_VoxImportType_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, METADATA_PARAMS(nullptr, 0) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UVoxAssetImportData_Statics::PropPointers[] = {
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_Scale,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_bImportXYCenter,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_bImportXForward,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_UseCommonVertexColorMaterial,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_ColorSwaps,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_ColorSwaps_Inner,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_ColorImportType,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_ColorImportType_Underlying,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_VoxImportType,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UVoxAssetImportData_Statics::NewProp_VoxImportType_Underlying,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UVoxAssetImportData_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<UVoxAssetImportData>::IsAbstract,
@@ -122,7 +187,7 @@ void EmptyLinkFunctionForGeneratedCodeVoxAssetImportData() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UVoxAssetImportData, 2568253918);
+	IMPLEMENT_CLASS(UVoxAssetImportData, 2390914386);
 	template<> VOX4UEDITOR_API UClass* StaticClass<UVoxAssetImportData>()
 	{
 		return UVoxAssetImportData::StaticClass();

@@ -21,13 +21,13 @@ public:
 	MonotoneMesh(const FVox* InVox);
 
 	/** Create FRawMesh from Voxel */
-	bool CreateRawMesh(FRawMesh& OutRawMesh, const UVoxImportOption* ImportOption);
+	bool CreateRawMesh(FRawMesh& OutRawMesh, const UVoxImportOption* ImportOption) const;
 
 private:
 
 	void CreatePolygons(TArray<FPolygon>& OutPolygons, const FIntVector& Plane, const FIntVector& Axis) const;
 	void CreateFaces(TArray<FFace>& OutFaces, const FIntVector& Plane, const FIntVector& Axis) const;
-	void WritePolygon(FRawMesh& OutRawMesh, const FIntVector& Axis, const FPolygon& Polygon) const;
+	void WritePolygon(FRawMesh& OutRawMesh, const FIntVector& Axis, const FPolygon& Polygon, const UVoxImportOption* ImportOption) const;
 
 	static void WriteVertex(FRawMesh& OutRawMesh, TArray<int>& OutLeftIndex, TArray<int>& OutRightIndex, const FIntVector& Axis, const FPolygon& Polygon);
 	static void WriteWedge(FRawMesh& OutRawMesh, bool Face, int Index1, int Index2, int Index3, int ColorIndex, int MaterialIndex = 0);
@@ -36,10 +36,6 @@ private:
 private:
 
 	const FVox* Vox;
-
-	bool bUseVertexColor;
-	TMap<int, int> MaterialMap;
-	TMap<int, FColor> ColorMap;
 };
 
 /**

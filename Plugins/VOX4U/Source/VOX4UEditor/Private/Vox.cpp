@@ -172,11 +172,11 @@ bool FVox::Import(FArchive& Ar, const UVoxImportOption* ImportOption)
 
 void FVox::PostImport(const UVoxImportOption * ImportOption)
 {
-	int SwappedColorIndex = 1;
 	MaterialIndex.Reserve(256);
 	for (auto ColorIndex = 0; ColorIndex < Palette.Num(); ++ColorIndex)
 	{
 		MaterialIndex.Add(0);
+		UVPalette.Add(FVector2D(((double)ColorIndex + 0.5) / 256.0, 0.5));
 		
 		for (auto SwapIndex = 0; SwapIndex < ImportOption->ColorSwaps.Num(); ++SwapIndex)
 		{
@@ -184,7 +184,7 @@ void FVox::PostImport(const UVoxImportOption * ImportOption)
 			{
 				if (ImportOption->ColorSwaps[SwapIndex].Material != nullptr)
 				{
-					MaterialIndex[ColorIndex] = SwappedColorIndex++;
+					MaterialIndex[ColorIndex] = SwapIndex + 1;
 				}
 				else
 				{
@@ -316,14 +316,18 @@ bool FVox::CreateRawMesh(FRawMesh& OutRawMesh, const UVoxImportOption* ImportOpt
 				OutRawMesh.WedgeIndices.Add(VertexPositionIndex[Polygons[PolygonIndex][0]]);
 				OutRawMesh.WedgeIndices.Add(VertexPositionIndex[Polygons[PolygonIndex][1]]);
 				OutRawMesh.WedgeIndices.Add(VertexPositionIndex[Polygons[PolygonIndex][2]]);
-				OutRawMesh.WedgeColors.Add(Palette[ColorIndex]);
-				OutRawMesh.WedgeColors.Add(Palette[ColorIndex]);
-				OutRawMesh.WedgeColors.Add(Palette[ColorIndex]);
-				FVector2D UV(((double)ColorIndex + 0.5) / 256.0, 0.5);
+				if (ImportOption->ColorImportType == EVoxColorType::VertexColor)
+				{
+					FColor Color = Palette[ColorIndex];
+					OutRawMesh.WedgeColors.Add(Color);
+					OutRawMesh.WedgeColors.Add(Color);
+					OutRawMesh.WedgeColors.Add(Color);
+				}
+				FVector2D UV = UVPalette[ColorIndex];
 				OutRawMesh.WedgeTexCoords[0].Add(UV);
 				OutRawMesh.WedgeTexCoords[0].Add(UV);
 				OutRawMesh.WedgeTexCoords[0].Add(UV);
-				OutRawMesh.FaceMaterialIndices.Add(0);
+				OutRawMesh.FaceMaterialIndices.Add(MaterialIndex[ColorIndex]);
 				OutRawMesh.FaceSmoothingMasks.Add(0);
 			}
 		}
@@ -377,13 +381,18 @@ bool FVox::CreateRawMeshes(TArray<FRawMesh>& OutRawMeshes, const UVoxImportOptio
 				OutRawMesh.WedgeIndices.Add(Faces[FaceIndex][Polygons[PolygonIndex][0]]);
 				OutRawMesh.WedgeIndices.Add(Faces[FaceIndex][Polygons[PolygonIndex][1]]);
 				OutRawMesh.WedgeIndices.Add(Faces[FaceIndex][Polygons[PolygonIndex][2]]);
-				OutRawMesh.WedgeColors.Add(Palette[ColorIndex]);
-				OutRawMesh.WedgeColors.Add(Palette[ColorIndex]);
-				OutRawMesh.WedgeColors.Add(Palette[ColorIndex]);
-				OutRawMesh.WedgeTexCoords[0].Add(FVector2D(((double)ColorIndex + 0.5) / 256.0, 0.5));
-				OutRawMesh.WedgeTexCoords[0].Add(FVector2D(((double)ColorIndex + 0.5) / 256.0, 0.5));
-				OutRawMesh.WedgeTexCoords[0].Add(FVector2D(((double)ColorIndex + 0.5) / 256.0, 0.5));
-				OutRawMesh.FaceMaterialIndices.Add(0);
+				if (ImportOption->ColorImportType == EVoxColorType::VertexColor)
+				{
+					FColor Color = Palette[ColorIndex];
+					OutRawMesh.WedgeColors.Add(Color);
+					OutRawMesh.WedgeColors.Add(Color);
+					OutRawMesh.WedgeColors.Add(Color);
+				}
+				FVector2D UV = UVPalette[ColorIndex];
+				OutRawMesh.WedgeTexCoords[0].Add(UV);
+				OutRawMesh.WedgeTexCoords[0].Add(UV);
+				OutRawMesh.WedgeTexCoords[0].Add(UV);
+				OutRawMesh.FaceMaterialIndices.Add(MaterialIndex[ColorIndex]);
 				OutRawMesh.FaceSmoothingMasks.Add(0);
 			}
 		}
@@ -419,7 +428,7 @@ bool FVox::CreateTexture(UTexture2D* const& OutTexture, UVoxImportOption* Import
 	return true;
 }
 
-bool FVox::CreateMesh(FRawMesh& OutRawMesh, const UVoxImportOption* ImportOption)
+bool FVox::CreateMesh(FRawMesh& OutRawMesh, FColor Color, const UVoxImportOption* ImportOption)
 {
 	for (int VertexIndex = 0; VertexIndex < 8; ++VertexIndex)
 	{
@@ -435,6 +444,12 @@ bool FVox::CreateMesh(FRawMesh& OutRawMesh, const UVoxImportOption* ImportOption
 			OutRawMesh.WedgeTexCoords[0].Add(TextureCoord[PolygonIndex][0]);
 			OutRawMesh.WedgeTexCoords[0].Add(TextureCoord[PolygonIndex][1]);
 			OutRawMesh.WedgeTexCoords[0].Add(TextureCoord[PolygonIndex][2]);
+			if(ImportOption->ColorImportType == EVoxColorType::VertexColor)
+			{
+				OutRawMesh.WedgeColors.Add(Color);
+				OutRawMesh.WedgeColors.Add(Color);
+				OutRawMesh.WedgeColors.Add(Color);
+			}
 			OutRawMesh.FaceMaterialIndices.Add(0);
 			OutRawMesh.FaceSmoothingMasks.Add(0);
 		}

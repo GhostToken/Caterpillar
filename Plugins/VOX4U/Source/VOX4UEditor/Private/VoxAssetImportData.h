@@ -17,7 +17,17 @@ class UVoxAssetImportData : public UAssetImportData
 
 public:
 
+	UPROPERTY(EditAnywhere, Category = Generic)
 	EVoxImportType VoxImportType;
+
+	UPROPERTY(EditAnywhere, Category = Generic)
+	EVoxColorType ColorImportType;
+
+	UPROPERTY(EditAnywhere, Category = Generic)
+	TArray<FColorSwap> ColorSwaps;
+
+	UPROPERTY(EditAnywhere, Category = Generic)
+	bool UseCommonVertexColorMaterial;
 
 	UPROPERTY(EditAnywhere, Category = Generic)
 	uint32 bImportXForward : 1;
@@ -35,5 +45,4 @@ public:
 	void ToVoxImportOption(UVoxImportOption& OutVoxImportOption);
 
 	void FromVoxImportOption(const UVoxImportOption& VoxImportOption);
-
 };

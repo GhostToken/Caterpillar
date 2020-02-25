@@ -17,6 +17,8 @@
 #include "VoxAssetImportData.h"
 #include "VoxImportOption.h"
 #include "Voxel.h"
+#include "AssetRegistryModule.h"
+#include "VoxSettings.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogVoxelFactory, Log, All)
 
@@ -213,8 +215,26 @@ UStaticMesh* UVoxelFactory::CreateStaticMesh(UObject* InParent, FName InName, EO
 
 	FRawMesh RawMesh;
 	Vox->CreateOptimizedRawMesh(RawMesh, ImportOption);
-	UMaterialInterface* Material = CreateMaterial(InParent, InName, Flags, Vox);
+
+	UMaterialInterface* Material;
+	if(ImportOption->ColorImportType == EVoxColorType::VertexColor)
+	{
+		Material = CreateVertexColorMaterial(InParent, InName, Flags);
+	}
+	else
+	{
+		Material = CreateMaterial(InParent, InName, Flags, Vox);
+	}
+	
 	StaticMesh->StaticMaterials.Add(FStaticMaterial(Material));
+	for( const FColorSwap& Swap : ImportOption->ColorSwaps)
+	{
+		if(Swap.Material != nullptr)
+		{
+			StaticMesh->StaticMaterials.Add(FStaticMaterial(Swap.Material));
+		}
+	}
+	
 	BuildStaticMesh(StaticMesh, RawMesh);
 	StaticMesh->AssetImportData->Update(Vox->Filename);
 	return StaticMesh;
@@ -230,6 +250,25 @@ USkeletalMesh* UVoxelFactory::CreateSkeletalMesh(UObject* InParent, FName InName
 		SkeletalMesh->AssetImportData = AssetImportData;
 	}
 
+	UMaterialInterface* Material;
+	if (ImportOption->ColorImportType == EVoxColorType::VertexColor)
+	{
+		Material = CreateVertexColorMaterial(InParent, InName, Flags);
+	}
+	else
+	{
+		Material = CreateMaterial(InParent, InName, Flags, Vox);
+	}
+	
+	SkeletalMesh->Materials.Add(FSkeletalMaterial(Material));
+	for (const FColorSwap& Swap : ImportOption->ColorSwaps)
+	{
+		if (Swap.Material != nullptr)
+		{
+			SkeletalMesh->Materials.Add(FSkeletalMaterial(Swap.Material));
+		}
+	}
+	
 	SkeletalMesh->AssetImportData->Update(Vox->Filename);
 	return SkeletalMesh;
 }
@@ -253,9 +292,28 @@ UDestructibleMesh* UVoxelFactory::CreateDestructibleMesh(UObject* InParent, FNam
 
 	FRawMesh RawMesh;
 	Vox->CreateOptimizedRawMesh(RawMesh, ImportOption);
-	UMaterialInterface* Material = CreateMaterial(InParent, InName, Flags, Vox);
+	
 	UStaticMesh* RootMesh = NewObject<UStaticMesh>();
+
+	UMaterialInterface* Material;
+	if (ImportOption->ColorImportType == EVoxColorType::VertexColor)
+	{
+		Material = CreateVertexColorMaterial(InParent, InName, Flags);
+	}
+	else
+	{
+		Material = CreateMaterial(InParent, InName, Flags, Vox);
+	}
+
 	RootMesh->StaticMaterials.Add(FStaticMaterial(Material));
+	for (const FColorSwap& Swap : ImportOption->ColorSwaps)
+	{
+		if (Swap.Material != nullptr)
+		{
+			RootMesh->StaticMaterials.Add(FStaticMaterial(Swap.Material));
+		}
+	}
+	
 	BuildStaticMesh(RootMesh, RawMesh);
 	DestructibleMesh->SourceStaticMesh = RootMesh;
 
@@ -265,7 +323,16 @@ UDestructibleMesh* UVoxelFactory::CreateDestructibleMesh(UObject* InParent, FNam
 	for (FRawMesh& ItRawMesh : RawMeshes)
 	{
 		UStaticMesh* FructureMesh = NewObject<UStaticMesh>();
+		
 		FructureMesh->StaticMaterials.Add(FStaticMaterial(Material));
+		for (const FColorSwap& Swap : ImportOption->ColorSwaps)
+		{
+			if (Swap.Material != nullptr)
+			{
+				FructureMesh->StaticMaterials.Add(FStaticMaterial(Swap.Material));
+			}
+		}
+		
 		BuildStaticMesh(FructureMesh, ItRawMesh);
 		FractureMeshes.Add(FructureMesh);
 	}
@@ -312,7 +379,7 @@ UVoxel* UVoxelFactory::CreateVoxel(UObject* InParent, FName InName, EObjectFlags
 		MaterialInstance->SetVectorParameterValueEditorOnly(TEXT("Color"), LinearColor);
 
 		FRawMesh RawMesh;
-		FVox::CreateMesh(RawMesh, ImportOption);
+		FVox::CreateMesh(RawMesh, Vox->Palette[color - 1], ImportOption);
 		UStaticMesh* StaticMesh = NewObject<UStaticMesh>(InParent, *FString::Printf(TEXT("%s_SM%d"), *InName.GetPlainNameString(), color), Flags | RF_Public);
 		StaticMesh->StaticMaterials.Add(FStaticMaterial(MaterialInstance));
 		BuildStaticMesh(StaticMesh, RawMesh);
@@ -361,4 +428,17 @@ UMaterialInterface* UVoxelFactory::CreateMaterial(UObject* InParent, FName &InNa
 		Material->PostEditChange();
 	}
 	return Material;
+}
+
+UMaterialInterface* UVoxelFactory::CreateVertexColorMaterial(UObject* InParent, FName &InName, EObjectFlags Flags) const
+{
+	UMaterial* Reference = UVoxSettings::Get().VertexGlobalMaterial.Get();
+	if (ImportOption->UseCommonVertexColorMaterial)
+	{
+		return Reference;
+	}
+	else
+	{
+		return NewObject<UMaterial>(InParent, *FString::Printf(TEXT("%s_MT"), *InName.GetPlainNameString()), Flags | RF_Public, Reference);
+	}
 }

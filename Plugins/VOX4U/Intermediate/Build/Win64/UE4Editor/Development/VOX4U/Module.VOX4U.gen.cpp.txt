@@ -1,7 +1,9 @@
 I:\Caterpillar\Plugins\VOX4U\Intermediate\Build\Win64\UE4Editor\Development\VOX4U\Definitions.VOX4U.h
-I:/Caterpillar/Plugins/VOX4U/Intermediate/Build/Win64/UE4Editor/Inc/VOX4U/VOX4U.init.gen.cpp
+I:/Caterpillar/Plugins/VOX4U/Intermediate/Build/Win64/UE4Editor/Inc/VOX4U/VoxCommon.gen.cpp
 G:\Epic Game Launcher Library\UE_4.24\Engine\Source\Runtime\CoreUObject\Public\UObject/GeneratedCppIncludes.h
 G:\Epic Game Launcher Library\UE_4.24\Engine\Source\Runtime\CoreUObject\Public\UObject/MetaData.h
+I:\Caterpillar\Plugins\VOX4U\Source\VOX4U/Public/VoxCommon.h
+i:\caterpillar\plugins\vox4u\intermediate\build\win64\ue4editor\inc\vox4u\VoxCommon.generated.h
 I:/Caterpillar/Plugins/VOX4U/Intermediate/Build/Win64/UE4Editor/Inc/VOX4U/Voxel.gen.cpp
 I:\Caterpillar\Plugins\VOX4U\Source\VOX4U/Public/Voxel.h
 G:\Epic Game Launcher Library\UE_4.24\Engine\Source\Runtime\CoreUObject\Public\UObject/NoExportTypes.h
@@ -15,3 +17,6 @@ i:\caterpillar\plugins\vox4u\intermediate\build\win64\ue4editor\inc\vox4u\VoxelA
 I:/Caterpillar/Plugins/VOX4U/Intermediate/Build/Win64/UE4Editor/Inc/VOX4U/VoxelComponent.gen.cpp
 I:\Caterpillar\Plugins\VOX4U\Source\VOX4U/Public/VoxelComponent.h
 i:\caterpillar\plugins\vox4u\intermediate\build\win64\ue4editor\inc\vox4u\VoxelComponent.generated.h
+I:/Caterpillar/Plugins/VOX4U/Intermediate/Build/Win64/UE4Editor/Inc/VOX4U/VoxSettings.gen.cpp
+I:\Caterpillar\Plugins\VOX4U\Source\VOX4U/Public/VoxSettings.h
+i:\caterpillar\plugins\vox4u\intermediate\build\win64\ue4editor\inc\vox4u\VoxSettings.generated.h

@@ -13,17 +13,10 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define VOX4UEDITOR_VoxImportOption_generated_h
 
-#define Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_32_GENERATED_BODY \
-	friend struct Z_Construct_UScriptStruct_FColorSwap_Statics; \
-	VOX4UEDITOR_API static class UScriptStruct* StaticStruct();
-
-
-template<> VOX4UEDITOR_API UScriptStruct* StaticStruct<struct FColorSwap>();
-
-#define Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_52_SPARSE_DATA
-#define Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_52_RPC_WRAPPERS
-#define Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_52_RPC_WRAPPERS_NO_PURE_DECLS
-#define Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_52_INCLASS_NO_PURE_DECLS \
+#define Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_18_SPARSE_DATA
+#define Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_18_RPC_WRAPPERS
+#define Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_18_RPC_WRAPPERS_NO_PURE_DECLS
+#define Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_18_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUVoxImportOption(); \
 	friend struct Z_Construct_UClass_UVoxImportOption_Statics; \
@@ -34,7 +27,7 @@ public: \
 
 
 
-#define Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_52_INCLASS \
+#define Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_18_INCLASS \
 private: \
 	static void StaticRegisterNativesUVoxImportOption(); \
 	friend struct Z_Construct_UClass_UVoxImportOption_Statics; \
@@ -45,7 +38,7 @@ public: \
 
 
 
-#define Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_52_STANDARD_CONSTRUCTORS \
+#define Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_18_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UVoxImportOption(const FObjectInitializer& ObjectInitializer); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UVoxImportOption) \
@@ -58,7 +51,7 @@ private: \
 public:
 
 
-#define Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_52_ENHANCED_CONSTRUCTORS \
+#define Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_18_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API UVoxImportOption(UVoxImportOption&&); \
@@ -69,28 +62,28 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UVoxImportOption); \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(UVoxImportOption)
 
 
-#define Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_52_PRIVATE_PROPERTY_OFFSET
-#define Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_49_PROLOG
-#define Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_52_GENERATED_BODY_LEGACY \
+#define Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_18_PRIVATE_PROPERTY_OFFSET
+#define Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_15_PROLOG
+#define Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_18_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_52_PRIVATE_PROPERTY_OFFSET \
-	Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_52_SPARSE_DATA \
-	Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_52_RPC_WRAPPERS \
-	Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_52_INCLASS \
-	Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_52_STANDARD_CONSTRUCTORS \
+	Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_18_PRIVATE_PROPERTY_OFFSET \
+	Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_18_SPARSE_DATA \
+	Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_18_RPC_WRAPPERS \
+	Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_18_INCLASS \
+	Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_18_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_52_GENERATED_BODY \
+#define Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_18_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_52_PRIVATE_PROPERTY_OFFSET \
-	Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_52_SPARSE_DATA \
-	Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_52_RPC_WRAPPERS_NO_PURE_DECLS \
-	Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_52_INCLASS_NO_PURE_DECLS \
-	Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_52_ENHANCED_CONSTRUCTORS \
+	Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_18_PRIVATE_PROPERTY_OFFSET \
+	Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_18_SPARSE_DATA \
+	Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_18_RPC_WRAPPERS_NO_PURE_DECLS \
+	Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_18_INCLASS_NO_PURE_DECLS \
+	Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h_18_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -100,21 +93,5 @@ template<> VOX4UEDITOR_API UClass* StaticClass<class UVoxImportOption>();
 #undef CURRENT_FILE_ID
 #define CURRENT_FILE_ID Caterpillar_Plugins_VOX4U_Source_VOX4UEditor_Private_VoxImportOption_h
 
-
-#define FOREACH_ENUM_EVOXCOLORTYPE(op) \
-	op(EVoxColorType::Texture) \
-	op(EVoxColorType::VertexColor) 
-
-enum class EVoxColorType;
-template<> VOX4UEDITOR_API UEnum* StaticEnum<EVoxColorType>();
-
-#define FOREACH_ENUM_EVOXIMPORTTYPE(op) \
-	op(EVoxImportType::StaticMesh) \
-	op(EVoxImportType::SkeletalMesh) \
-	op(EVoxImportType::DestructibleMesh) \
-	op(EVoxImportType::Voxel) 
-
-enum class EVoxImportType;
-template<> VOX4UEDITOR_API UEnum* StaticEnum<EVoxImportType>();
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

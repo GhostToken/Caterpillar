@@ -8,12 +8,15 @@
 
 UVoxImportOption::UVoxImportOption()
 	: VoxImportType(EVoxImportType::StaticMesh)
-	, ColorType(EVoxColorType::VertexColor)
+	, ColorImportType(EVoxColorType::VertexColor)
+	, UseCommonVertexColorMaterial(true)
 	, bImportXForward(true)
 	, bImportXYCenter(true)
 	, Scale(10.f)
 {
 	BuildSettings.BuildScale3D = FVector(Scale);
+
+	ApplyDefaultSettings();
 }
 
 bool UVoxImportOption::GetImportOption(bool& bOutImportAll)
@@ -38,4 +41,23 @@ bool UVoxImportOption::GetImportOption(bool& bOutImportAll)
 	bOutImportAll = VoxOptionWidget->ShouldImportAll();
 
 	return VoxOptionWidget->ShouldImport();
+}
+
+void UVoxImportOption::ApplyDefaultSettings()
+{
+	const UVoxSettings& Settings = UVoxSettings::Get();
+	VoxImportType = Settings.VoxImportType;
+	ColorImportType = Settings.ColorImportType;
+
+	ColorSwaps.Empty();
+	for (auto& Swap : Settings.ColorSwaps)
+	{
+		ColorSwaps.Add(Swap);
+	}
+
+	UseCommonVertexColorMaterial = Settings.UseCommonVertexColorMaterial;
+	bImportXForward = Settings.bImportXForward;
+	bImportXYCenter = Settings.bImportXYCenter;
+	Scale = Settings.Scale;
+	BuildSettings.BuildScale3D = FVector(Scale);
 }

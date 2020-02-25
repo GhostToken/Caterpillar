@@ -31,6 +31,8 @@ struct FVox
 	TArray<FColor> Palette;
 	/** Material index, for material swap */
 	TArray<int> MaterialIndex;
+	/** UV according to Palette */
+	TArray<FVector2D> UVPalette;
 	
 public:
 
@@ -56,7 +58,7 @@ public:
 
 	/** Create UTexture2D from Palette */
 	bool CreateTexture(UTexture2D* const& OutTexture, UVoxImportOption* ImportOption) const;
-
+	
 	/** Create one raw mesh */
-	static bool CreateMesh(FRawMesh& OutRawMesh, const UVoxImportOption* ImportOption);
+	static bool CreateMesh(FRawMesh& OutRawMesh, FColor Color, const UVoxImportOption* ImportOption);
 };

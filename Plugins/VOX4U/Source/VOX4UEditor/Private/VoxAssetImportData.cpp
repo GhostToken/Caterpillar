@@ -4,6 +4,8 @@
 
 UVoxAssetImportData::UVoxAssetImportData()
 	: VoxImportType(EVoxImportType::StaticMesh)
+	, ColorImportType(EVoxColorType::VertexColor)
+	, UseCommonVertexColorMaterial(true)
 	, bImportXForward(true)
 	, bImportXYCenter(true)
 	, Scale(10.f)
@@ -13,6 +15,15 @@ UVoxAssetImportData::UVoxAssetImportData()
 void UVoxAssetImportData::ToVoxImportOption(UVoxImportOption& OutVoxImportOption)
 {
 	OutVoxImportOption.VoxImportType = VoxImportType;
+	OutVoxImportOption.ColorImportType = ColorImportType;
+	
+	OutVoxImportOption.ColorSwaps.Empty();
+	for (auto& Swap : ColorSwaps)
+	{
+		OutVoxImportOption.ColorSwaps.Add(Swap);
+	}
+	
+	OutVoxImportOption.UseCommonVertexColorMaterial = UseCommonVertexColorMaterial;
 	OutVoxImportOption.bImportXForward = bImportXForward;
 	OutVoxImportOption.bImportXYCenter = bImportXYCenter;
 	OutVoxImportOption.Scale = Scale;
@@ -22,6 +33,16 @@ void UVoxAssetImportData::ToVoxImportOption(UVoxImportOption& OutVoxImportOption
 void UVoxAssetImportData::FromVoxImportOption(const UVoxImportOption& VoxImportOption)
 {
 	VoxImportType = VoxImportOption.VoxImportType;
+	ColorImportType = VoxImportOption.ColorImportType;
+	
+	ColorSwaps.Empty();
+	for (auto& Swap : VoxImportOption.ColorSwaps)
+	{
+		ColorSwaps.Add(Swap);
+	}
+	
+	UseCommonVertexColorMaterial = VoxImportOption.UseCommonVertexColorMaterial;
+	ColorImportType = VoxImportOption.ColorImportType;
 	bImportXForward = VoxImportOption.bImportXForward;
 	bImportXYCenter = VoxImportOption.bImportXYCenter;
 	Scale = VoxImportOption.Scale;

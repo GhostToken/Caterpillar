@@ -6,42 +6,8 @@
 #include <Engine/EngineTypes.h>
 #include <UObject/NoExportTypes.h>
 #include "Materials/Material.h"
+#include "VoxSettings.h"
 #include "VoxImportOption.generated.h"
-
-/** Import mesh type */
-UENUM()
-enum class EVoxImportType
-{
-	StaticMesh UMETA(DisplayName = "Static Mesh"),
-	SkeletalMesh UMETA(DisplayName = "Skeletal Mesh"),
-	DestructibleMesh UMETA(DisplayName = "Destructible Mesh"),
-	Voxel UMETA(DisplayName = "Voxel"),
-};
-
-/** Import mesh type */
-UENUM()
-enum class EVoxColorType
-{
-	Texture,
-	VertexColor
-};
-
-USTRUCT()
-struct FColorSwap
-{
-	GENERATED_BODY()
-
-public:
-
-	UPROPERTY(EditAnywhere)
-	FColor ColorToSwap = FColor(0, 255, 0, 255);
-
-	UPROPERTY(EditAnywhere)
-	UMaterial* Material;
-	
-	UPROPERTY(EditAnywhere)
-	FColor SwappedColor;;
-};
 
 /**
  * Import option
@@ -57,18 +23,21 @@ public:
 		EVoxImportType VoxImportType;
 
 	UPROPERTY(EditAnywhere, Category = ImportType)
-		EVoxColorType ColorType;
+		EVoxColorType ColorImportType;
 
 	UPROPERTY(EditAnywhere, Category = ImportType)
 		TArray<FColorSwap> ColorSwaps;
 
-	UPROPERTY(EditAnywhere, Category = Generic)
+	UPROPERTY(EditAnywhere, Category = ImportType)
+		bool UseCommonVertexColorMaterial;
+
+	UPROPERTY(EditAnywhere, Category = ImportType)
 		uint32 bImportXForward : 1;
 
-	UPROPERTY(EditAnywhere, Category = Generic)
+	UPROPERTY(EditAnywhere, Category = ImportType)
 		uint32 bImportXYCenter : 1;
 
-	UPROPERTY(EditAnywhere, Category = Generic)
+	UPROPERTY(EditAnywhere, Category = ImportType)
 		float Scale;
 
 public:
@@ -82,10 +51,11 @@ public:
 		return BuildSettings;
 	}
 
+	void ApplyDefaultSettings();
+
 private:
 
 	FMeshBuildSettings BuildSettings;
 
 	friend class UVoxAssetImportData;
-
 };

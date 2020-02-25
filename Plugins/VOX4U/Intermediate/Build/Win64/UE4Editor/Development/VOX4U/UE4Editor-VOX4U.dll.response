@@ -33,7 +33,9 @@
 /NODEFAULTLIB:"LIBCPD"
 /FUNCTIONPADMIN
 "I:\Caterpillar\Intermediate\Build\Win64\CaterpillarEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.obj"
+"I:\Caterpillar\Plugins\VOX4U\Intermediate\Build\Win64\UE4Editor\Development\VOX4U\VoxSettings.cpp.obj"
 "I:\Caterpillar\Plugins\VOX4U\Intermediate\Build\Win64\UE4Editor\Development\VOX4U\Module.VOX4U.cpp.obj"
+"I:\Caterpillar\Plugins\VOX4U\Intermediate\Build\Win64\UE4Editor\Development\VOX4U\VOX4U.init.gen.cpp.obj"
 "I:\Caterpillar\Plugins\VOX4U\Intermediate\Build\Win64\UE4Editor\Development\VOX4U\Module.VOX4U.gen.cpp.obj"
 "I:\Caterpillar\Plugins\VOX4U\Intermediate\Build\Win64\UE4Editor\Development\VOX4U\Default.rc2.res"
 "delayimp.lib"
