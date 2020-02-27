@@ -39,6 +39,9 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = ImportType)
 		float Scale;
+	
+	UPROPERTY(EditAnywhere, Category = ImportType)
+		UMaterial* Palette;
 
 public:
 

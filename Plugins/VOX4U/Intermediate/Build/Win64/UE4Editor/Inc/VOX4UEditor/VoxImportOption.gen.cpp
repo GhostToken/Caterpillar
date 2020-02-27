@@ -17,6 +17,7 @@ void EmptyLinkFunctionForGeneratedCodeVoxImportOption() {}
 	VOX4UEDITOR_API UClass* Z_Construct_UClass_UVoxImportOption();
 	COREUOBJECT_API UClass* Z_Construct_UClass_UObject();
 	UPackage* Z_Construct_UPackage__Script_VOX4UEditor();
+	ENGINE_API UClass* Z_Construct_UClass_UMaterial_NoRegister();
 	VOX4U_API UScriptStruct* Z_Construct_UScriptStruct_FColorSwap();
 	VOX4U_API UEnum* Z_Construct_UEnum_VOX4U_EVoxColorType();
 	VOX4U_API UEnum* Z_Construct_UEnum_VOX4U_EVoxImportType();
@@ -34,6 +35,10 @@ void EmptyLinkFunctionForGeneratedCodeVoxImportOption() {}
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Palette_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_Palette;
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Scale_MetaData[];
 #endif
@@ -85,6 +90,13 @@ void EmptyLinkFunctionForGeneratedCodeVoxImportOption() {}
 		{ "ToolTip", "Import option" },
 	};
 #endif
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UVoxImportOption_Statics::NewProp_Palette_MetaData[] = {
+		{ "Category", "ImportType" },
+		{ "ModuleRelativePath", "Private/VoxImportOption.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UVoxImportOption_Statics::NewProp_Palette = { "Palette", nullptr, (EPropertyFlags)0x0010000000000001, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UVoxImportOption, Palette), Z_Construct_UClass_UMaterial_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UVoxImportOption_Statics::NewProp_Palette_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UVoxImportOption_Statics::NewProp_Palette_MetaData)) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UVoxImportOption_Statics::NewProp_Scale_MetaData[] = {
 		{ "Category", "ImportType" },
@@ -150,6 +162,7 @@ void EmptyLinkFunctionForGeneratedCodeVoxImportOption() {}
 	const UE4CodeGen_Private::FEnumPropertyParams Z_Construct_UClass_UVoxImportOption_Statics::NewProp_VoxImportType = { "VoxImportType", nullptr, (EPropertyFlags)0x0010000000000001, UE4CodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UVoxImportOption, VoxImportType), Z_Construct_UEnum_VOX4U_EVoxImportType, METADATA_PARAMS(Z_Construct_UClass_UVoxImportOption_Statics::NewProp_VoxImportType_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UVoxImportOption_Statics::NewProp_VoxImportType_MetaData)) };
 	const UE4CodeGen_Private::FUnsizedIntPropertyParams Z_Construct_UClass_UVoxImportOption_Statics::NewProp_VoxImportType_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, METADATA_PARAMS(nullptr, 0) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UVoxImportOption_Statics::PropPointers[] = {
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UVoxImportOption_Statics::NewProp_Palette,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UVoxImportOption_Statics::NewProp_Scale,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UVoxImportOption_Statics::NewProp_bImportXYCenter,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UVoxImportOption_Statics::NewProp_bImportXForward,
@@ -188,7 +201,7 @@ void EmptyLinkFunctionForGeneratedCodeVoxImportOption() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UVoxImportOption, 3307715400);
+	IMPLEMENT_CLASS(UVoxImportOption, 1114401646);
 	template<> VOX4UEDITOR_API UClass* StaticClass<UVoxImportOption>()
 	{
 		return UVoxImportOption::StaticClass();

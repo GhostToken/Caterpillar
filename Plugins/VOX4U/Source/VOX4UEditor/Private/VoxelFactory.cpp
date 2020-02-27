@@ -217,16 +217,7 @@ UStaticMesh* UVoxelFactory::CreateStaticMesh(UObject* InParent, FName InName, EO
 	FRawMesh RawMesh;
 	Vox->CreateOptimizedRawMesh(RawMesh, ImportOption);
 
-	UMaterialInterface* Material;
-	if(ImportOption->ColorImportType == EVoxColorType::VertexColor)
-	{
-		Material = CreateVertexColorMaterial(InParent, InName, Flags);
-	}
-	else
-	{
-		Material = CreateMaterial(InParent, InName, Flags, Vox);
-	}
-	
+	UMaterialInterface* Material = CreateMaterial(InParent, InName, Flags, Vox);
 	StaticMesh->StaticMaterials.Add(FStaticMaterial(Material));
 	for( const FColorSwap& Swap : ImportOption->ColorSwaps)
 	{
@@ -251,16 +242,7 @@ USkeletalMesh* UVoxelFactory::CreateSkeletalMesh(UObject* InParent, FName InName
 		SkeletalMesh->AssetImportData = AssetImportData;
 	}
 
-	UMaterialInterface* Material;
-	if (ImportOption->ColorImportType == EVoxColorType::VertexColor)
-	{
-		Material = CreateVertexColorMaterial(InParent, InName, Flags);
-	}
-	else
-	{
-		Material = CreateMaterial(InParent, InName, Flags, Vox);
-	}
-	
+	UMaterialInterface* Material = CreateMaterial(InParent, InName, Flags, Vox);
 	SkeletalMesh->Materials.Add(FSkeletalMaterial(Material));
 	for (const FColorSwap& Swap : ImportOption->ColorSwaps)
 	{
@@ -293,18 +275,10 @@ UDestructibleMesh* UVoxelFactory::CreateDestructibleMesh(UObject* InParent, FNam
 
 	FRawMesh RawMesh;
 	Vox->CreateOptimizedRawMesh(RawMesh, ImportOption);
-	
 	UStaticMesh* RootMesh = NewObject<UStaticMesh>();
-	UMaterialInterface* Material;
-	if (ImportOption->ColorImportType == EVoxColorType::VertexColor)
-	{
-		Material = CreateVertexColorMaterial(InParent, InName, Flags);
-	}
-	else
-	{
-		Material = CreateMaterial(InParent, InName, Flags, Vox);
-	}
-
+	BuildStaticMesh(RootMesh, RawMesh);
+	
+	UMaterialInterface* Material = CreateMaterial(InParent, InName, Flags, Vox);
 	RootMesh->StaticMaterials.Add(FStaticMaterial(Material));
 	for (const FColorSwap& Swap : ImportOption->ColorSwaps)
 	{
@@ -314,7 +288,6 @@ UDestructibleMesh* UVoxelFactory::CreateDestructibleMesh(UObject* InParent, FNam
 		}
 	}
 	
-	BuildStaticMesh(RootMesh, RawMesh);
 	DestructibleMesh->SourceStaticMesh = RootMesh;
 	DestructibleMesh->bHasVertexColors = true;
 	
@@ -411,28 +384,39 @@ UStaticMesh* UVoxelFactory::BuildStaticMesh(UStaticMesh* OutStaticMesh, FRawMesh
 
 UMaterialInterface* UVoxelFactory::CreateMaterial(UObject* InParent, FName &InName, EObjectFlags Flags, const FVox* Vox) const
 {
-	UMaterial* Reference = UVoxSettings::Get().TextureBaseMaterial.Get();
-	UMaterialInstanceConstant* MaterialInstance = NewObject<UMaterialInstanceConstant>(InParent, *FString::Printf(TEXT("%s_MI"), *InName.GetPlainNameString()), Flags | RF_Public);
-	MaterialInstance->SetParentEditorOnly(Reference);
-	
-	UTexture2D* Texture = NewObject<UTexture2D>(InParent, *FString::Printf(TEXT("%s_TX"), *InName.GetPlainNameString()), Flags | RF_Public);
-	if (Vox->CreateTexture(Texture, ImportOption))
+	UMaterialInterface* Result;
+	if (ImportOption->ColorImportType == EVoxColorType::VertexColor)
 	{
-		MaterialInstance->SetTextureParameterValueEditorOnly(TEXT("Palette"), Texture);
-		MaterialInstance->PostEditChange();
-	}
-	return MaterialInstance;
-}
-
-UMaterialInterface* UVoxelFactory::CreateVertexColorMaterial(UObject* InParent, FName &InName, EObjectFlags Flags) const
-{
-	UMaterial* Reference = UVoxSettings::Get().VertexGlobalMaterial.Get();
-	if (ImportOption->UseCommonVertexColorMaterial)
-	{
-		return Reference;
+		UMaterial* Reference = UVoxSettings::Get().VertexGlobalMaterial.Get();
+		if (ImportOption->UseCommonVertexColorMaterial)
+		{
+			Result = Reference;
+		}
+		else
+		{
+			Result = NewObject<UMaterial>(InParent, *FString::Printf(TEXT("%s_MT"), *InName.GetPlainNameString()), Flags | RF_Public, Reference);
+		}
 	}
 	else
 	{
-		return NewObject<UMaterial>(InParent, *FString::Printf(TEXT("%s_MT"), *InName.GetPlainNameString()), Flags | RF_Public, Reference);
+		if (ImportOption->Palette != nullptr )
+		{
+			Result = ImportOption->Palette;
+		}
+		else
+		{
+			UMaterial* Reference = UVoxSettings::Get().TextureBaseMaterial.Get();
+			UMaterialInstanceConstant* MaterialInstance = NewObject<UMaterialInstanceConstant>(InParent, *FString::Printf(TEXT("%s_MI"), *InName.GetPlainNameString()), Flags | RF_Public);
+			MaterialInstance->SetParentEditorOnly(Reference);
+
+			UTexture2D* Texture = NewObject<UTexture2D>(InParent, *FString::Printf(TEXT("%s_TX"), *InName.GetPlainNameString()), Flags | RF_Public);
+			if (Vox->CreateTexture(Texture, ImportOption))
+			{
+				MaterialInstance->SetTextureParameterValueEditorOnly(TEXT("Palette"), Texture);
+				MaterialInstance->PostEditChange();
+			}
+			Result = MaterialInstance;
+		}
 	}
+	return Result;
 }

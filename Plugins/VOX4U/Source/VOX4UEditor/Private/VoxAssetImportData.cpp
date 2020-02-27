@@ -9,6 +9,7 @@ UVoxAssetImportData::UVoxAssetImportData()
 	, bImportXForward(true)
 	, bImportXYCenter(true)
 	, Scale(10.f)
+	, Palette(nullptr)
 {
 }
 
@@ -27,6 +28,7 @@ void UVoxAssetImportData::ToVoxImportOption(UVoxImportOption& OutVoxImportOption
 	OutVoxImportOption.bImportXForward = bImportXForward;
 	OutVoxImportOption.bImportXYCenter = bImportXYCenter;
 	OutVoxImportOption.Scale = Scale;
+	OutVoxImportOption.Palette = Palette;
 	OutVoxImportOption.BuildSettings.BuildScale3D = FVector(Scale);
 }
 
@@ -46,4 +48,5 @@ void UVoxAssetImportData::FromVoxImportOption(const UVoxImportOption& VoxImportO
 	bImportXForward = VoxImportOption.bImportXForward;
 	bImportXYCenter = VoxImportOption.bImportXYCenter;
 	Scale = VoxImportOption.Scale;
+	Palette = VoxImportOption.Palette;
 }

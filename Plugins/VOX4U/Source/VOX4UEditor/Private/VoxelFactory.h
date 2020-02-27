@@ -56,8 +56,6 @@ private:
 
 	UMaterialInterface* CreateMaterial(UObject* InParent, FName &InName, EObjectFlags Flags, const FVox* Vox) const;
 
-	UMaterialInterface* CreateVertexColorMaterial(UObject* InParent, FName &InName, EObjectFlags Flags) const;
-
 protected:
 
 	UPROPERTY()

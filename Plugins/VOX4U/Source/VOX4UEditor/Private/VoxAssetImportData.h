@@ -37,6 +37,9 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = Generic)
 	float Scale;
+	
+	UPROPERTY(EditAnywhere, Category = Generic)
+	UMaterial* Palette;
 
 public:
 

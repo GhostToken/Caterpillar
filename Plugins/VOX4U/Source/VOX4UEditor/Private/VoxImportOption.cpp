@@ -13,6 +13,7 @@ UVoxImportOption::UVoxImportOption()
 	, bImportXForward(true)
 	, bImportXYCenter(true)
 	, Scale(10.f)
+	, Palette(nullptr)
 {
 	BuildSettings.BuildScale3D = FVector(Scale);
 
@@ -59,5 +60,6 @@ void UVoxImportOption::ApplyDefaultSettings()
 	bImportXForward = Settings.bImportXForward;
 	bImportXYCenter = Settings.bImportXYCenter;
 	Scale = Settings.Scale;
+	Palette = Settings.TextureBaseMaterial.LoadSynchronous();
 	BuildSettings.BuildScale3D = FVector(Scale);
 }
