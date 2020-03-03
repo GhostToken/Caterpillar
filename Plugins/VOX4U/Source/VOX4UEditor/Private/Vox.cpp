@@ -36,6 +36,49 @@ FVox::FVox()
 {
 }
 
+
+FVox::FVox(FVox& Other, FIntVector& Min, FIntVector& Max)
+{
+	Filename = Other.Filename;
+	Size = Other.Size;
+
+	
+	for( auto element : Other.Voxel)
+	{
+		if(element.Key.X < Min.X)
+		{
+			continue;
+		}
+		if (element.Key.X >= Max.X)
+		{
+			continue;
+		}
+		if  (element.Key.Y < Min.Y)
+		{
+			continue;
+		}
+		if (element.Key.Y >= Max.Y)
+		{
+			continue;
+		}
+		if (element.Key.Z < Min.Z)
+		{
+			continue;
+		}
+		if (element.Key.Z >= Max.Z)
+		{
+			continue;
+		}
+		
+		Voxel.Add(element.Key, element.Value);
+	}
+	Palette = Other.Palette;
+	MaterialIndex = Other.MaterialIndex;
+	UVPalette = Other.UVPalette;
+	MaterialOrder = Other.MaterialOrder;
+	MaterialTable = Other.MaterialTable;
+}
+
 /**
  * Create vox data from archive
  * @param FArchive& Ar	Read vox data from the archive
@@ -172,7 +215,9 @@ bool FVox::Import(FArchive& Ar, const UVoxImportOption* ImportOption)
 
 void FVox::PostImport(const UVoxImportOption * ImportOption)
 {
+	int SwappedMaterialIndex = 1;
 	MaterialIndex.Reserve(256);
+	MaterialTable.Add(nullptr);
 	for (auto ColorIndex = 0; ColorIndex < Palette.Num(); ++ColorIndex)
 	{
 		MaterialIndex.Add(0);
@@ -184,7 +229,8 @@ void FVox::PostImport(const UVoxImportOption * ImportOption)
 			{
 				if (ImportOption->ColorSwaps[SwapIndex].Material != nullptr)
 				{
-					MaterialIndex[ColorIndex] = SwapIndex + 1;
+					MaterialIndex[ColorIndex] = SwappedMaterialIndex++;
+					MaterialTable.Add(ImportOption->ColorSwaps[SwapIndex].Material);
 				}
 				else
 				{
@@ -193,6 +239,14 @@ void FVox::PostImport(const UVoxImportOption * ImportOption)
 				break;
 			}
 		}
+	}
+}
+
+void FVox::PushUsedMaterialIndex(int Index)
+{
+	if (!MaterialOrder.Contains(Index))
+	{
+		MaterialOrder.Add(Index);
 	}
 }
 
@@ -292,7 +346,7 @@ static FVector2D TextureCoord[2][3] = {
  * @param FRawMesh& RawMesh	Out RawMesh
  * @return Result
  */
-bool FVox::CreateRawMesh(FRawMesh& OutRawMesh, const UVoxImportOption* ImportOption) const
+bool FVox::CreateRawMesh(FRawMesh& OutRawMesh, const UVoxImportOption* ImportOption)
 {
 	for (const auto& Cell : Voxel)
 	{
@@ -328,6 +382,7 @@ bool FVox::CreateRawMesh(FRawMesh& OutRawMesh, const UVoxImportOption* ImportOpt
 				OutRawMesh.WedgeTexCoords[0].Add(UV);
 				OutRawMesh.WedgeTexCoords[0].Add(UV);
 				OutRawMesh.FaceMaterialIndices.Add(MaterialIndex[ColorIndex]);
+				PushUsedMaterialIndex(MaterialIndex[ColorIndex]);
 				OutRawMesh.FaceSmoothingMasks.Add(0);
 			}
 		}
@@ -351,7 +406,7 @@ bool FVox::CreateRawMesh(FRawMesh& OutRawMesh, const UVoxImportOption* ImportOpt
  * @param OutRawMesh Out raw mesh
  * @return Result
  */
-bool FVox::CreateOptimizedRawMesh(FRawMesh& OutRawMesh, const UVoxImportOption* ImportOption) const
+bool FVox::CreateOptimizedRawMesh(FRawMesh& OutRawMesh, const UVoxImportOption* ImportOption) 
 {
 	MonotoneMesh Mesher(this);
 	return Mesher.CreateRawMesh(OutRawMesh, ImportOption);
@@ -362,80 +417,77 @@ bool FVox::CreateOptimizedRawMesh(FRawMesh& OutRawMesh, const UVoxImportOption* 
  * @param FRawMesh& RawMesh	Out RawMesh
  * @return Result
  */
-bool FVox::CreateRawMeshes(TArray<FRawMesh>& OutRawMeshes, const UVoxImportOption* ImportOption) const
+bool FVox::CreateRawMeshes(TArray<FRawMesh>& OutRawMeshes, const UVoxImportOption* ImportOption)
 {
-	for (const auto& Cell : Voxel)
+	FIntVector Min(9999999, 9999999, 9999999);
+	FIntVector Max(0,0,0);
+	for (auto element : Voxel)
 	{
-		FRawMesh OutRawMesh;
-
-		FVector Origin(Cell.Key.X, Cell.Key.Y, Cell.Key.Z);
-		for (int VertexIndex = 0; VertexIndex < 8; ++VertexIndex)
+		Min.X = FMath::Min(Min.X, element.Key.X);
+		Min.Y = FMath::Min(Min.Y, element.Key.Y);
+		Min.Z = FMath::Min(Min.Z, element.Key.Z);
+		Max.X = FMath::Max(Max.X, element.Key.X);
+		Max.Y = FMath::Max(Max.Y, element.Key.Y);
+		Max.Z = FMath::Max(Max.Z, element.Key.Z);
+	}
+	FIntVector SliceSize = Max - Min;
+	SliceSize.X /= ImportOption->Slice.X;
+	SliceSize.Y /= ImportOption->Slice.Y;
+	SliceSize.Z /= ImportOption->Slice.Z;
+	
+	FIntVector SliceMin;
+	FIntVector SliceMax;
+	for(int32 XSlice = 0; XSlice < ImportOption->Slice.X; ++XSlice)
+	{
+		SliceMin.X = Min.X + SliceSize.X * XSlice;
+		SliceMax.X = Min.X + SliceSize.X * (XSlice+1);
+		for (int32 YSlice = 0; YSlice < ImportOption->Slice.Y; ++YSlice)
 		{
-			OutRawMesh.VertexPositions.Add(Origin + Vertexes[VertexIndex]);
-		}
-		for (int FaceIndex = 0; FaceIndex < 6; ++FaceIndex)
-		{
-			uint8 ColorIndex = Cell.Value - 1;
-			for (int PolygonIndex = 0; PolygonIndex < 2; ++PolygonIndex)
+			SliceMin.Y = Min.Y + SliceSize.Y * YSlice;
+			SliceMax.Y = Min.Y + SliceSize.Y * (YSlice + 1);
+			for (int32 ZSlice = 0; ZSlice < ImportOption->Slice.Z; ++ZSlice)
 			{
-				OutRawMesh.WedgeIndices.Add(Faces[FaceIndex][Polygons[PolygonIndex][0]]);
-				OutRawMesh.WedgeIndices.Add(Faces[FaceIndex][Polygons[PolygonIndex][1]]);
-				OutRawMesh.WedgeIndices.Add(Faces[FaceIndex][Polygons[PolygonIndex][2]]);
-				if (ImportOption->ColorImportType == EVoxColorType::VertexColor)
-				{
-					FColor Color = Palette[ColorIndex];
-					OutRawMesh.WedgeColors.Add(Color);
-					OutRawMesh.WedgeColors.Add(Color);
-					OutRawMesh.WedgeColors.Add(Color);
-				}
-				FVector2D UV = UVPalette[ColorIndex];
-				OutRawMesh.WedgeTexCoords[0].Add(UV);
-				OutRawMesh.WedgeTexCoords[0].Add(UV);
-				OutRawMesh.WedgeTexCoords[0].Add(UV);
-				OutRawMesh.FaceMaterialIndices.Add(MaterialIndex[ColorIndex]);
-				OutRawMesh.FaceSmoothingMasks.Add(0);
+				SliceMin.Z = Min.Z + SliceSize.Z * ZSlice;
+				SliceMax.Z = Min.Z + SliceSize.Z * (ZSlice + 1);
+
+				FVox SubVox = FVox(*this, SliceMin, SliceMax);
+				FRawMesh SubRawMesh;
+				SubVox.CreateOptimizedRawMesh(SubRawMesh, ImportOption);
+				OutRawMeshes.Add(SubRawMesh);
 			}
 		}
-		OutRawMeshes.Add(OutRawMesh);
-	}
-
-	FVector Offset = ImportOption->bImportXYCenter ? FVector((float)Size.X * 0.5f, (float)Size.Y * 0.5f, 0.f) : FVector::ZeroVector;
-	for (FRawMesh& OutRawMesh : OutRawMeshes)
-	{
-		for (int32 i = 0; i < OutRawMesh.VertexPositions.Num(); ++i)
-		{
-			FVector VertexPosition = OutRawMesh.VertexPositions[i];
-			OutRawMesh.VertexPositions[i] = VertexPosition - Offset;
-		}
-		OutRawMesh.CompactMaterialIndices();
-		check(OutRawMesh.IsValidOrFixable());
 	}
 
 	return true;
 }
 
-
-bool FVox::CreateTexture(UTexture2D* const& OutTexture, UVoxImportOption* ImportOption) const
+bool FVox::CreateTexture(UTexture2D* const& OutTexture, UVoxImportOption* ImportOption)
 {
 	check(OutTexture);
 	OutTexture->LODGroup = TextureGroup::TEXTUREGROUP_World;
-	OutTexture->CompressionSettings = TextureCompressionSettings::TC_Default;
+	OutTexture->CompressionSettings = TextureCompressionSettings::TC_HDR;
 	OutTexture->MipGenSettings = TextureMipGenSettings::TMGS_NoMipmaps;
 	OutTexture->Filter = TextureFilter::TF_Nearest;
 	OutTexture->DeferCompression = true;
 
-	TArray<uint8> Bytes;
-	for(const FColor& Color : Palette)
+	uint8 * pixels = (uint8 *)malloc(256 * 4);
+	for( int iPixel = 0; iPixel < 256; ++iPixel)
 	{
-		Bytes.Add(Color.B);
-		Bytes.Add(Color.G);
-		Bytes.Add(Color.R);
-		Bytes.Add(Color.A);
+		const int iPixelStart = iPixel * 4;
+		pixels[iPixelStart] = Palette[iPixel].B;
+		pixels[iPixelStart + 1] = Palette[iPixel].G;
+		pixels[iPixelStart + 2] = Palette[iPixel].R;
+		pixels[iPixelStart + 3] = Palette[iPixel].A;
 	}
 	
-	OutTexture->Source.Init(16, 16, 1, 1, TSF_BGRA8, (const uint8*)Bytes.GetData());
+	OutTexture->Source.Init(16, 16, 1, 1, TSF_BGRA8, pixels);
+	OutTexture->PlatformData = new FTexturePlatformData();
+	OutTexture->PlatformData->SizeX = 16;
+	OutTexture->PlatformData->SizeY = 16;
+	OutTexture->PlatformData->PixelFormat = PF_B8G8R8A8;
 	OutTexture->UpdateResource();
 	OutTexture->PostEditChange();
+	free(pixels);
 	return true;
 }
 

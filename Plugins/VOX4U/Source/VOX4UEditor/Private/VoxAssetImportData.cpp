@@ -16,6 +16,7 @@ UVoxAssetImportData::UVoxAssetImportData()
 void UVoxAssetImportData::ToVoxImportOption(UVoxImportOption& OutVoxImportOption)
 {
 	OutVoxImportOption.VoxImportType = VoxImportType;
+	OutVoxImportOption.Slice = Slice;
 	OutVoxImportOption.ColorImportType = ColorImportType;
 	
 	OutVoxImportOption.ColorSwaps.Empty();
@@ -35,8 +36,8 @@ void UVoxAssetImportData::ToVoxImportOption(UVoxImportOption& OutVoxImportOption
 void UVoxAssetImportData::FromVoxImportOption(const UVoxImportOption& VoxImportOption)
 {
 	VoxImportType = VoxImportOption.VoxImportType;
+	Slice = VoxImportOption.Slice;
 	ColorImportType = VoxImportOption.ColorImportType;
-	
 	ColorSwaps.Empty();
 	for (auto& Swap : VoxImportOption.ColorSwaps)
 	{

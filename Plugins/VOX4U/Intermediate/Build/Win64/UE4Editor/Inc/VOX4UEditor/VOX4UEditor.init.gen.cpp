@@ -21,7 +21,7 @@ void EmptyLinkFunctionForGeneratedCodeVOX4UEditor_init() {}
 				nullptr,
 				0,
 				PKG_CompiledIn | 0x00000040,
-				0xDF610A62,
+				0x164ABDF2,
 				0xF817CFF8,
 				METADATA_PARAMS(nullptr, 0)
 			};

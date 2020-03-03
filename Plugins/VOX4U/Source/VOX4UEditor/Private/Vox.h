@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include <RawMesh.h>
+#include "Materials/MaterialInterface.h"
 
 class UTexture2D;
 class UVoxImportOption;
@@ -33,11 +34,19 @@ struct FVox
 	TArray<int> MaterialIndex;
 	/** UV according to Palette */
 	TArray<FVector2D> UVPalette;
+
+	/** index 0 is Base Material */
+	TArray<int> MaterialOrder;
+	
+	TArray<UMaterialInterface*> MaterialTable;
 	
 public:
 
 	/** Create empty vox data */
 	FVox();
+
+	/** Create a sub vox data, selecting some axis */
+	FVox(FVox& Other, FIntVector& Min, FIntVector& Max);
 
 	/** Create vox data from archive */
 	FVox(const FString& Filename, FArchive& Ar, const UVoxImportOption* ImportOption);
@@ -47,17 +56,19 @@ public:
 
 	void PostImport(const UVoxImportOption* ImportOption);
 
+	void PushUsedMaterialIndex(int MaterialIndex);
+	
 	/** Create FRawMesh from Voxel */
-	bool CreateRawMesh(FRawMesh& OutRawMesh, const UVoxImportOption* ImportOption) const;
+	bool CreateRawMesh(FRawMesh& OutRawMesh, const UVoxImportOption* ImportOption);
 
 	/** Create FRawMesh from Voxel use Monotone mesh generation */
-	bool CreateOptimizedRawMesh(FRawMesh& OutRawMesh, const UVoxImportOption* ImportOption) const;
+	bool CreateOptimizedRawMesh(FRawMesh& OutRawMesh, const UVoxImportOption* ImportOption);
 
 	/** Create raw meshes from Voxel */
-	bool CreateRawMeshes(TArray<FRawMesh>& OutRawMeshes, const UVoxImportOption* ImportOption) const;
+	bool CreateRawMeshes(TArray<FRawMesh>& OutRawMeshes, const UVoxImportOption* ImportOption);
 
 	/** Create UTexture2D from Palette */
-	bool CreateTexture(UTexture2D* const& OutTexture, UVoxImportOption* ImportOption) const;
+	bool CreateTexture(UTexture2D* const& OutTexture, UVoxImportOption* ImportOption);
 	
 	/** Create one raw mesh */
 	static bool CreateMesh(FRawMesh& OutRawMesh, FColor Color, const UVoxImportOption* ImportOption);

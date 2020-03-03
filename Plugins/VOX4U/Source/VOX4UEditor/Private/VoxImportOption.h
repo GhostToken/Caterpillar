@@ -22,25 +22,28 @@ public:
 	UPROPERTY(EditAnywhere, Category = ImportType)
 		EVoxImportType VoxImportType;
 
-	UPROPERTY(EditAnywhere, Category = ImportType)
+	UPROPERTY(EditAnywhere, Category = "ImportType|Destructible")
+		FIntVector Slice = FIntVector(2, 2, 2);
+
+	UPROPERTY(EditAnywhere, Category = "ImportType|Colors")
 		EVoxColorType ColorImportType;
 
-	UPROPERTY(EditAnywhere, Category = ImportType)
+	UPROPERTY(EditAnywhere, Category = "ImportType|Colors")
 		TArray<FColorSwap> ColorSwaps;
 
-	UPROPERTY(EditAnywhere, Category = ImportType)
+	UPROPERTY(EditAnywhere, Category = "ImportType|Colors")
 		bool UseCommonVertexColorMaterial;
 
-	UPROPERTY(EditAnywhere, Category = ImportType)
+	UPROPERTY(EditAnywhere, Category = "ImportType|Size")
 		uint32 bImportXForward : 1;
 
-	UPROPERTY(EditAnywhere, Category = ImportType)
+	UPROPERTY(EditAnywhere, Category = "ImportType|Size")
 		uint32 bImportXYCenter : 1;
 
-	UPROPERTY(EditAnywhere, Category = ImportType)
+	UPROPERTY(EditAnywhere, Category = "ImportType|Size")
 		float Scale;
 	
-	UPROPERTY(EditAnywhere, Category = ImportType)
+	UPROPERTY(EditAnywhere, Category = "ImportType|Colors")
 		UMaterial* Palette;
 
 public:

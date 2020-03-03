@@ -7,7 +7,7 @@
 /**
  * Construct mesh generator using referenced voxel
  */
-MonotoneMesh::MonotoneMesh(const FVox* InVox)
+MonotoneMesh::MonotoneMesh(FVox* InVox)
 {
 	Vox = InVox;
 }
@@ -16,38 +16,8 @@ MonotoneMesh::MonotoneMesh(const FVox* InVox)
  * CreateRawMesh
  * Create raw mesh use monotone decomposition algorithm
  */
-bool MonotoneMesh::CreateRawMesh(FRawMesh& OutRawMesh, const UVoxImportOption* ImportOption) const
+bool MonotoneMesh::CreateRawMesh(FRawMesh& OutRawMesh, const UVoxImportOption* ImportOption)
 {
-	//int SwappedColorIndex = 1;
-	//for( auto ColorIndex = 0; ColorIndex < Vox->Palette.Num(); ++ColorIndex)
-	//{
-	//	bool bSwapped = false;
-	//	for( auto SwapIndex = 0; SwapIndex < ImportOption->ColorSwaps.Num(); ++SwapIndex)
-	//	{
-	//		if (Vox->Palette[ColorIndex] == ImportOption->ColorSwaps[SwapIndex].ColorToSwap)
-	//		{
-	//			if(ImportOption->ColorSwaps[SwapIndex].Material != nullptr)
-	//			{
-	//				MaterialMap.Add(ColorIndex, SwappedColorIndex++);
-	//				ColorMap.Add(ColorIndex, Vox->Palette[ColorIndex]);
-	//			}
-	//			else
-	//			{
-	//				MaterialMap.Add(ColorIndex, 0);
-	//				ColorMap.Add(ColorIndex, ImportOption->ColorSwaps[SwapIndex].SwappedColor);
-	//			}
-	//			bSwapped = true;
-	//			break;
-	//		}
-	//	}
-
-	//	if(!bSwapped)
-	//	{
-	//		MaterialMap.Add(ColorIndex, 0);
-	//		ColorMap.Add(ColorIndex, Vox->Palette[ColorIndex]);
-	//	}
-	//}
-	
 	for (auto Dimension = 0; Dimension < 3; ++Dimension)
 	{
 		auto Plane = FIntVector::ZeroValue;
@@ -82,7 +52,7 @@ bool MonotoneMesh::CreateRawMesh(FRawMesh& OutRawMesh, const UVoxImportOption* I
  * @param Plane Coordinate for polygon faces
  * @param Axis Component index of scan faces
  */
-void MonotoneMesh::CreatePolygons(TArray<FPolygon>& OutPolygons, const FIntVector& Plane, const FIntVector& Axis) const
+void MonotoneMesh::CreatePolygons(TArray<FPolygon>& OutPolygons, const FIntVector& Plane, const FIntVector& Axis)
 {
 	auto P = Plane;
 	auto Frontier = TArray<int>();
@@ -147,7 +117,7 @@ void MonotoneMesh::CreatePolygons(TArray<FPolygon>& OutPolygons, const FIntVecto
  * @param Plane Coordinate for polygon faces
  * @param Axis Component index of scan faces
  */
-void MonotoneMesh::CreateFaces(TArray<FFace>& OutFaces, const FIntVector& Plane, const FIntVector& Axis) const
+void MonotoneMesh::CreateFaces(TArray<FFace>& OutFaces, const FIntVector& Plane, const FIntVector& Axis)
 {
 	auto P = Plane;
 	auto D = FIntVector();
@@ -184,7 +154,7 @@ void MonotoneMesh::CreateFaces(TArray<FFace>& OutFaces, const FIntVector& Plane,
  * @param Axis Polygon axis
  * @param Polygon Polygon to divide and write
  */
-void MonotoneMesh::WritePolygon(FRawMesh& OutRawMesh, const FIntVector& Axis, const FPolygon& Polygon, const UVoxImportOption* ImportOption) const
+void MonotoneMesh::WritePolygon(FRawMesh& OutRawMesh, const FIntVector& Axis, const FPolygon& Polygon, const UVoxImportOption* ImportOption)
 {
 	auto LeftIndex = TArray<int>();
 	auto RightIndex = TArray<int>();
@@ -227,10 +197,10 @@ void MonotoneMesh::WritePolygon(FRawMesh& OutRawMesh, const FIntVector& Axis, co
 				const auto& First = List[0];
 				const auto& Second = List[1];
 
+				Vox->PushUsedMaterialIndex(Vox->MaterialIndex[Color]);
 				if (ImportOption->ColorImportType == EVoxColorType::VertexColor)
 				{
 					WriteWedgeVertexColor(OutRawMesh, Flipped == Side, First.Key, Second.Key, Index, Color, Vox->Palette[Color], Vox->MaterialIndex[Color]);
-
 				}
 				else
 				{
@@ -252,6 +222,7 @@ void MonotoneMesh::WritePolygon(FRawMesh& OutRawMesh, const FIntVector& Axis, co
 				}
 				if (Normal != 0)
 				{
+					Vox->PushUsedMaterialIndex(Vox->MaterialIndex[Color]);
 					if (ImportOption->ColorImportType == EVoxColorType::VertexColor)
 					{
 						WriteWedgeVertexColor(OutRawMesh, Flipped == Side, Last.Key, PreviousLast.Key, Index, Color, Vox->Palette[Color], Vox->MaterialIndex[Color]);

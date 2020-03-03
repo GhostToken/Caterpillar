@@ -21,8 +21,8 @@ void EmptyLinkFunctionForGeneratedCodeVOX4U_init() {}
 				nullptr,
 				0,
 				PKG_CompiledIn | 0x00000000,
-				0x3EBC7609,
-				0xC556EAC1,
+				0xF5D96F40,
+				0x3D332A4C,
 				METADATA_PARAMS(nullptr, 0)
 			};
 			UE4CodeGen_Private::ConstructUPackage(ReturnPackage, PackageParams);

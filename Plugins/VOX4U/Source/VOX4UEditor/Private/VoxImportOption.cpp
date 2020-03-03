@@ -49,7 +49,7 @@ void UVoxImportOption::ApplyDefaultSettings()
 	const UVoxSettings& Settings = UVoxSettings::Get();
 	VoxImportType = Settings.VoxImportType;
 	ColorImportType = Settings.ColorImportType;
-
+	Slice = Settings.Slice;
 	ColorSwaps.Empty();
 	for (auto& Swap : Settings.ColorSwaps)
 	{

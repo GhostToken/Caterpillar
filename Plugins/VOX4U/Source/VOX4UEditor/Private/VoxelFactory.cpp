@@ -204,7 +204,7 @@ EReimportResult::Type UVoxelFactory::Reimport(UObject* Obj)
 	return Result;
 }
 
-UStaticMesh* UVoxelFactory::CreateStaticMesh(UObject* InParent, FName InName, EObjectFlags Flags, const FVox* Vox) const
+UStaticMesh* UVoxelFactory::CreateStaticMesh(UObject* InParent, FName InName, EObjectFlags Flags, FVox* Vox) const
 {
 	UStaticMesh* StaticMesh = NewObject<UStaticMesh>(InParent, InName, Flags | RF_Public);
 	if (!StaticMesh->AssetImportData || !StaticMesh->AssetImportData->IsA<UVoxAssetImportData>())
@@ -217,13 +217,17 @@ UStaticMesh* UVoxelFactory::CreateStaticMesh(UObject* InParent, FName InName, EO
 	FRawMesh RawMesh;
 	Vox->CreateOptimizedRawMesh(RawMesh, ImportOption);
 
-	UMaterialInterface* Material = CreateMaterial(InParent, InName, Flags, Vox);
-	StaticMesh->StaticMaterials.Add(FStaticMaterial(Material));
-	for( const FColorSwap& Swap : ImportOption->ColorSwaps)
+	UMaterialInterface* Material = nullptr;
+	for (int MatIndex = 0; MatIndex < Vox->MaterialOrder.Num(); ++MatIndex)
 	{
-		if(Swap.Material != nullptr)
+		if (MatIndex == 0)
 		{
-			StaticMesh->StaticMaterials.Add(FStaticMaterial(Swap.Material));
+			Material = CreateMaterial(InParent, InName, Flags, Vox);
+			StaticMesh->StaticMaterials.Add(FStaticMaterial(Material));
+		}
+		else
+		{
+			StaticMesh->StaticMaterials.Add(FStaticMaterial(Vox->MaterialTable[MatIndex]));
 		}
 	}
 	
@@ -232,7 +236,7 @@ UStaticMesh* UVoxelFactory::CreateStaticMesh(UObject* InParent, FName InName, EO
 	return StaticMesh;
 }
 
-USkeletalMesh* UVoxelFactory::CreateSkeletalMesh(UObject* InParent, FName InName, EObjectFlags Flags, const FVox* Vox) const
+USkeletalMesh* UVoxelFactory::CreateSkeletalMesh(UObject* InParent, FName InName, EObjectFlags Flags, FVox* Vox) const
 {
 	USkeletalMesh* SkeletalMesh = NewObject<USkeletalMesh>(InParent, InName, Flags | RF_Public);
 	if (!SkeletalMesh->AssetImportData || !SkeletalMesh->AssetImportData->IsA<UVoxAssetImportData>())
@@ -263,7 +267,7 @@ USkeletalMesh* UVoxelFactory::CreateSkeletalMesh(UObject* InParent, FName InName
  * @param Flags Import flags
  * @param Vox Voxel file data
  */
-UDestructibleMesh* UVoxelFactory::CreateDestructibleMesh(UObject* InParent, FName InName, EObjectFlags Flags, const FVox* Vox) const
+UDestructibleMesh* UVoxelFactory::CreateDestructibleMesh(UObject* InParent, FName InName, EObjectFlags Flags, FVox* Vox) const
 {
 	UDestructibleMesh* DestructibleMesh = NewObject<UDestructibleMesh>(InParent, InName, Flags | RF_Public);
 	if (!DestructibleMesh->AssetImportData || !DestructibleMesh->AssetImportData->IsA<UVoxAssetImportData>())
@@ -277,35 +281,35 @@ UDestructibleMesh* UVoxelFactory::CreateDestructibleMesh(UObject* InParent, FNam
 	Vox->CreateOptimizedRawMesh(RawMesh, ImportOption);
 	UStaticMesh* RootMesh = NewObject<UStaticMesh>();
 	BuildStaticMesh(RootMesh, RawMesh);
-	
-	UMaterialInterface* Material = CreateMaterial(InParent, InName, Flags, Vox);
-	RootMesh->StaticMaterials.Add(FStaticMaterial(Material));
-	for (const FColorSwap& Swap : ImportOption->ColorSwaps)
+
+	UMaterialInterface* Material = nullptr;
+	for( int MatIndex = 0; MatIndex < Vox->MaterialOrder.Num(); ++MatIndex)
 	{
-		if (Swap.Material != nullptr)
+		if(MatIndex == 0)
 		{
-			RootMesh->StaticMaterials.Add(FStaticMaterial(Swap.Material));
+			Material = CreateMaterial(InParent, InName, Flags, Vox);
+			RootMesh->StaticMaterials.Add(FStaticMaterial(Material));
+		}
+		else
+		{
+			RootMesh->StaticMaterials.Add(FStaticMaterial(Vox->MaterialTable[MatIndex]));
 		}
 	}
 	
 	DestructibleMesh->SourceStaticMesh = RootMesh;
-	DestructibleMesh->bHasVertexColors = true;
+	DestructibleMesh->bHasVertexColors = (ImportOption->ColorImportType == EVoxColorType::VertexColor);
 	
+	TArray<FRawMesh> RawMeshes;
+	Vox->CreateRawMeshes(RawMeshes, ImportOption);
 	TArray<UStaticMesh*> FractureMeshes;
-	UStaticMesh* FructureMesh = NewObject<UStaticMesh>();
-	FructureMesh->StaticMaterials.Add(FStaticMaterial(Material));
-	for (const FColorSwap& Swap : ImportOption->ColorSwaps)
+	for (FRawMesh& SubawMesh : RawMeshes)
 	{
-		if (Swap.Material != nullptr)
-		{
-			FructureMesh->StaticMaterials.Add(FStaticMaterial(Swap.Material));
-		}
+		UStaticMesh* FructureMesh = NewObject<UStaticMesh>();
+		FructureMesh->StaticMaterials.Add(FStaticMaterial(Material));
+		BuildStaticMesh(FructureMesh, SubawMesh);
+		FractureMeshes.Add(FructureMesh);
 	}
-
-	BuildStaticMesh(FructureMesh, RawMesh);
-	FractureMeshes.Add(FructureMesh);
 	DestructibleMesh->SetupChunksFromStaticMeshes(FractureMeshes);
-
 	BuildDestructibleMeshFromFractureSettings(*DestructibleMesh, nullptr);
 	DestructibleMesh->SourceStaticMesh = nullptr;
 	DestructibleMesh->AssetImportData->Update(Vox->Filename);
@@ -313,7 +317,7 @@ UDestructibleMesh* UVoxelFactory::CreateDestructibleMesh(UObject* InParent, FNam
 	return DestructibleMesh;
 }
 
-UVoxel* UVoxelFactory::CreateVoxel(UObject* InParent, FName InName, EObjectFlags Flags, const FVox* Vox) const
+UVoxel* UVoxelFactory::CreateVoxel(UObject* InParent, FName InName, EObjectFlags Flags, FVox* Vox) const
 {
 	UVoxel* Voxel = NewObject<UVoxel>(InParent, InName, Flags | RF_Public);
 	if (!Voxel->AssetImportData || !Voxel->AssetImportData->IsA<UVoxAssetImportData>())
@@ -382,7 +386,7 @@ UStaticMesh* UVoxelFactory::BuildStaticMesh(UStaticMesh* OutStaticMesh, FRawMesh
 	return OutStaticMesh;
 }
 
-UMaterialInterface* UVoxelFactory::CreateMaterial(UObject* InParent, FName &InName, EObjectFlags Flags, const FVox* Vox) const
+UMaterialInterface* UVoxelFactory::CreateMaterial(UObject* InParent, FName &InName, EObjectFlags Flags, FVox* Vox) const
 {
 	UMaterialInterface* Result;
 	if (ImportOption->ColorImportType == EVoxColorType::VertexColor)

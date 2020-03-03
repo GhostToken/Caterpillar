@@ -2,13 +2,13 @@
 	"RemapUnityFiles": 
 	{
 		"Module.VOX4UEditor.cpp.obj": [
-			"MonotoneMesh.cpp.obj",
 			"SVoxOptionWidget.cpp.obj",
-			"Vox.cpp.obj",
 			"VOX4UEditor.cpp.obj",
 			"VoxelActorFactory.cpp.obj",
 			"VoxelAssetTypeActions.cpp.obj",
 			"VoxelThumbnailRenderer.cpp.obj",
+			"MonotoneMesh.cpp.obj",
+			"Vox.cpp.obj",
 			"VoxAssetImportData.cpp.obj",
 			"VoxelFactory.cpp.obj",
 			"VoxImportOption.cpp.obj"

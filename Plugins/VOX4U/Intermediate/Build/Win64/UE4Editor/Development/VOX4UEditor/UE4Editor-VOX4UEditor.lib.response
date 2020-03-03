@@ -7,6 +7,8 @@
 /IGNORE:4221
 /NODEFAULTLIB
 "I:\Caterpillar\Intermediate\Build\Win64\CaterpillarEditor\Development\UnrealEd\SharedPCH.UnrealEd.ShadowErrors.h.obj"
+"I:\Caterpillar\Plugins\VOX4U\Intermediate\Build\Win64\UE4Editor\Development\VOX4UEditor\MonotoneMesh.cpp.obj"
+"I:\Caterpillar\Plugins\VOX4U\Intermediate\Build\Win64\UE4Editor\Development\VOX4UEditor\Vox.cpp.obj"
 "I:\Caterpillar\Plugins\VOX4U\Intermediate\Build\Win64\UE4Editor\Development\VOX4UEditor\VoxAssetImportData.cpp.obj"
 "I:\Caterpillar\Plugins\VOX4U\Intermediate\Build\Win64\UE4Editor\Development\VOX4UEditor\VoxelFactory.cpp.obj"
 "I:\Caterpillar\Plugins\VOX4U\Intermediate\Build\Win64\UE4Editor\Development\VOX4UEditor\VoxImportOption.cpp.obj"

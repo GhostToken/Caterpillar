@@ -20,30 +20,32 @@ class VOX4U_API UVoxSettings : public UDeveloperSettings
 	UPROPERTY(EditAnywhere, config, Category = VOX)
 		EVoxImportType VoxImportType;
 
-	UPROPERTY(EditAnywhere, config, Category = VOX)
+	UPROPERTY(EditAnywhere, Category = "VOX|Destructible")
+		FIntVector Slice = FIntVector(2, 2, 2);
+
+	UPROPERTY(EditAnywhere, config, Category = "VOX|Colors")
 		EVoxColorType ColorImportType;
 
-	UPROPERTY(EditAnywhere, config, Category = VOX)
+	UPROPERTY(EditAnywhere, config, Category = "VOX|Colors")
 		TArray<FColorSwap> ColorSwaps;
 
-	UPROPERTY(EditAnywhere, config, Category = VOX)
+	UPROPERTY(EditAnywhere, config, Category = "VOX|Colors")
 		bool UseCommonVertexColorMaterial;
 
-	UPROPERTY(EditAnywhere, config, Category = VOX)
+	UPROPERTY(EditAnywhere, config, Category = "VOX|Size")
 		uint32 bImportXForward : 1;
 
-	UPROPERTY(EditAnywhere, config, Category = VOX)
+	UPROPERTY(EditAnywhere, config, Category = "VOX|Size")
 		uint32 bImportXYCenter : 1;
 
-	UPROPERTY(EditAnywhere, config, Category = VOX)
+	UPROPERTY(EditAnywhere, config, Category = "VOX|Size")
 		float Scale;
 
-	UPROPERTY(EditAnywhere, config, Category = VOX)
+	UPROPERTY(EditAnywhere, config, Category = "VOX|Colors")
 		TSoftObjectPtr<UMaterial> VertexGlobalMaterial;
 	
-	UPROPERTY(EditAnywhere, config, Category = VOX)
+	UPROPERTY(EditAnywhere, config, Category = "VOX|Colors")
 		TSoftObjectPtr<UMaterial> TextureBaseMaterial;
-	
 
 	static const UVoxSettings& Get()
 	{
