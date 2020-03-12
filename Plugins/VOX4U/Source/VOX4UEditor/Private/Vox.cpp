@@ -49,7 +49,7 @@ FVox::FVox(FVox& Other, FIntVector& Min, FIntVector& Max)
 		{
 			continue;
 		}
-		if (element.Key.X >= Max.X)
+		if (element.Key.X > Max.X)
 		{
 			continue;
 		}
@@ -57,7 +57,7 @@ FVox::FVox(FVox& Other, FIntVector& Min, FIntVector& Max)
 		{
 			continue;
 		}
-		if (element.Key.Y >= Max.Y)
+		if (element.Key.Y > Max.Y)
 		{
 			continue;
 		}
@@ -65,7 +65,7 @@ FVox::FVox(FVox& Other, FIntVector& Min, FIntVector& Max)
 		{
 			continue;
 		}
-		if (element.Key.Z >= Max.Z)
+		if (element.Key.Z > Max.Z)
 		{
 			continue;
 		}
@@ -419,38 +419,55 @@ bool FVox::CreateOptimizedRawMesh(FRawMesh& OutRawMesh, const UVoxImportOption* 
  */
 bool FVox::CreateRawMeshes(TArray<FRawMesh>& OutRawMeshes, const UVoxImportOption* ImportOption)
 {
-	FIntVector Min(9999999, 9999999, 9999999);
-	FIntVector Max(0,0,0);
+	FIntVector SliceCount;
+	FIntVector Min(TNumericLimits<int32>::Max(), TNumericLimits<int32>::Max(), TNumericLimits<int32>::Max());
+	FIntVector Max(TNumericLimits<int32>::Min(), TNumericLimits<int32>::Min(), TNumericLimits<int32>::Min());
 	for (auto element : Voxel)
 	{
 		Min.X = FMath::Min(Min.X, element.Key.X);
-		Min.Y = FMath::Min(Min.Y, element.Key.Y);
-		Min.Z = FMath::Min(Min.Z, element.Key.Z);
 		Max.X = FMath::Max(Max.X, element.Key.X);
+		
+		Min.Y = FMath::Min(Min.Y, element.Key.Y);
 		Max.Y = FMath::Max(Max.Y, element.Key.Y);
+		
+		Min.Z = FMath::Min(Min.Z, element.Key.Z);
 		Max.Z = FMath::Max(Max.Z, element.Key.Z);
 	}
-	FIntVector SliceSize = Max - Min;
-	SliceSize.X /= ImportOption->Slice.X;
-	SliceSize.Y /= ImportOption->Slice.Y;
-	SliceSize.Z /= ImportOption->Slice.Z;
+	FVector SliceSize(Max.X - Min.X, Max.Y - Min.Y, Max.Z - Min.Z);
+	
+	UE_LOG(LogVox, Warning, TEXT("Size total : X=%f Y=%f Z=%f"), SliceSize.X, SliceSize.Y, SliceSize.Z);
+	
+	SliceCount.X = FMath::Min(FMath::CeilToInt(SliceSize.X), ImportOption->Slice.X);
+	SliceCount.Y = FMath::Min(FMath::CeilToInt(SliceSize.Y), ImportOption->Slice.Y);
+	SliceCount.Z = FMath::Min(FMath::CeilToInt(SliceSize.Z), ImportOption->Slice.Z);
+	
+	UE_LOG(LogVox, Warning, TEXT("Slice Count : X=%d Y=%d Z=%d"), SliceCount.X, SliceCount.Y, SliceCount.Z);
+	
+	SliceSize.X /= SliceCount.X;
+	SliceSize.Y /= SliceCount.Y;
+	SliceSize.Z /= SliceCount.Z;
+
+	UE_LOG(LogVox, Warning, TEXT("Slice Size  : X=%f Y=%f Z=%f"), SliceSize.X, SliceSize.Y, SliceSize.Z);
 	
 	FIntVector SliceMin;
 	FIntVector SliceMax;
-	for(int32 XSlice = 0; XSlice < ImportOption->Slice.X; ++XSlice)
+	for(int32 XSlice = 0; XSlice < SliceCount.X; ++XSlice)
 	{
-		SliceMin.X = Min.X + SliceSize.X * XSlice;
-		SliceMax.X = Min.X + SliceSize.X * (XSlice+1);
-		for (int32 YSlice = 0; YSlice < ImportOption->Slice.Y; ++YSlice)
+		SliceMin.X = (XSlice == 0 ? -1 : Min.X + SliceSize.X * XSlice );
+		SliceMax.X = (XSlice == SliceCount.X - 1 ? 257 : Min.X + SliceSize.X * (XSlice + 1));
+		
+		for (int32 YSlice = 0; YSlice < SliceCount.Y; ++YSlice)
 		{
-			SliceMin.Y = Min.Y + SliceSize.Y * YSlice;
-			SliceMax.Y = Min.Y + SliceSize.Y * (YSlice + 1);
-			for (int32 ZSlice = 0; ZSlice < ImportOption->Slice.Z; ++ZSlice)
+			SliceMin.Y = (YSlice == 0 ? -1 : Min.Y + SliceSize.Y * YSlice);
+			SliceMax.Y = (YSlice == SliceCount.Y - 1 ? 257 : Min.Y + SliceSize.Y * (YSlice + 1));
+			
+			for (int32 ZSlice = 0; ZSlice < SliceCount.Z; ++ZSlice)
 			{
-				SliceMin.Z = Min.Z + SliceSize.Z * ZSlice;
-				SliceMax.Z = Min.Z + SliceSize.Z * (ZSlice + 1);
+				SliceMin.Z = (ZSlice == 0 ? -1 : Min.Z + SliceSize.Z * ZSlice);
+				SliceMax.Z = (ZSlice == SliceCount.Z - 1 ? 257 : Min.Z + SliceSize.Z * (ZSlice + 1));
 
 				FVox SubVox = FVox(*this, SliceMin, SliceMax);
+				UE_LOG(LogVox, Warning, TEXT("SUB VOX %d/%d/%d Min : (%d, %d , %d) / Max : (%d, %d , %d)"), XSlice, YSlice, ZSlice, SliceMin.X, SliceMin.Y, SliceMin.Z, SliceMax.X, SliceMax.Y, SliceMax.Z);
 				FRawMesh SubRawMesh;
 				SubVox.CreateOptimizedRawMesh(SubRawMesh, ImportOption);
 				OutRawMeshes.Add(SubRawMesh);
