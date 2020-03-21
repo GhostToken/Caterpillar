@@ -9,12 +9,12 @@
 			"VoxSettings.cpp.obj"
 		],
 		"Module.VOX4U.gen.cpp.obj": [
+			"VOX4U.init.gen.cpp.obj",
 			"VoxCommon.gen.cpp.obj",
 			"Voxel.gen.cpp.obj",
 			"VoxelActor.gen.cpp.obj",
 			"VoxelComponent.gen.cpp.obj",
-			"VoxSettings.gen.cpp.obj",
-			"VOX4U.init.gen.cpp.obj"
+			"VoxSettings.gen.cpp.obj"
 		]
 	}
 }

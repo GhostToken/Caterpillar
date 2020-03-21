@@ -283,6 +283,9 @@ UDestructibleMesh* UVoxelFactory::CreateDestructibleMesh(UObject* InParent, FNam
 	BuildStaticMesh(RootMesh, RawMesh);
 
 	UMaterialInterface* Material = nullptr;
+	RootMesh->StaticMaterials.Empty();
+	DestructibleMesh->Materials.Empty();
+	DestructibleMesh->SourceStaticMesh = RootMesh;
 	for( int MatIndex = 0; MatIndex < Vox->MaterialOrder.Num(); ++MatIndex)
 	{
 		if(MatIndex == 0)
@@ -296,7 +299,6 @@ UDestructibleMesh* UVoxelFactory::CreateDestructibleMesh(UObject* InParent, FNam
 		}
 	}
 	
-	DestructibleMesh->SourceStaticMesh = RootMesh;
 	DestructibleMesh->bHasVertexColors = (ImportOption->ColorImportType == EVoxColorType::VertexColor);
 	
 	TArray<FRawMesh> RawMeshes;
@@ -313,7 +315,16 @@ UDestructibleMesh* UVoxelFactory::CreateDestructibleMesh(UObject* InParent, FNam
 	BuildDestructibleMeshFromFractureSettings(*DestructibleMesh, nullptr);
 	DestructibleMesh->SourceStaticMesh = nullptr;
 	DestructibleMesh->AssetImportData->Update(Vox->Filename);
+	DestructibleMesh->DefaultDestructibleParameters.AdvancedParameters.MaxChunkSpeed = 50.0f;
 
+	if(DestructibleMesh->Materials.Num() > Vox->MaterialOrder.Num())
+	{
+		for(int Index = DestructibleMesh->Materials.Num() - 1; Index >= Vox->MaterialOrder.Num(); --Index)
+		{
+			DestructibleMesh->Materials.RemoveAt(Index);
+		}
+	}
+	
 	return DestructibleMesh;
 }
 

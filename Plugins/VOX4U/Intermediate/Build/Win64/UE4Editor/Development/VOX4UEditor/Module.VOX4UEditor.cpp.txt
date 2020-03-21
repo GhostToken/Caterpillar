@@ -1,8 +1,8 @@
 I:\Caterpillar\Plugins\VOX4U\Intermediate\Build\Win64\UE4Editor\Development\VOX4UEditor\Definitions.VOX4UEditor.h
-I:/Caterpillar/Plugins/VOX4U/Source/VOX4UEditor/Private/SVoxOptionWidget.cpp
-i:\caterpillar\plugins\vox4u\source\vox4ueditor\private\SVoxOptionWidget.h
-G:\Epic Game Launcher Library\UE_4.24\Engine\Source\Runtime\Slate\Public\SlateOptMacros.h
-G:\Epic Game Launcher Library\UE_4.24\Engine\Source\Runtime\Slate\Public\Widgets/Layout/SUniformGridPanel.h
+I:/Caterpillar/Plugins/VOX4U/Source/VOX4UEditor/Private/MonotoneMesh.cpp
+i:\caterpillar\plugins\vox4u\source\vox4ueditor\private\MonotoneMesh.h
+G:\Epic Game Launcher Library\UE_4.24\Engine\Source\Developer\RawMesh\Public\RawMesh.h
+i:\caterpillar\plugins\vox4u\source\vox4ueditor\private\Vox.h
 i:\caterpillar\plugins\vox4u\source\vox4ueditor\private\VoxImportOption.h
 G:\Epic Game Launcher Library\UE_4.24\Engine\Source\Runtime\CoreUObject\Public\UObject/NoExportTypes.h
 G:\Epic Game Launcher Library\UE_4.24\Engine\Source\Runtime\Core\Public\Math/UnitConversion.h
@@ -15,6 +15,11 @@ i:\caterpillar\plugins\vox4u\source\vox4u\public\VoxCommon.h
 I:\Caterpillar\Plugins\VOX4U\Intermediate\Build\Win64\UE4Editor\Inc\VOX4U\VoxCommon.generated.h
 I:\Caterpillar\Plugins\VOX4U\Intermediate\Build\Win64\UE4Editor\Inc\VOX4U\VoxSettings.generated.h
 I:\Caterpillar\Plugins\VOX4U\Intermediate\Build\Win64\UE4Editor\Inc\VOX4UEditor\VoxImportOption.generated.h
+I:/Caterpillar/Plugins/VOX4U/Source/VOX4UEditor/Private/SVoxOptionWidget.cpp
+i:\caterpillar\plugins\vox4u\source\vox4ueditor\private\SVoxOptionWidget.h
+G:\Epic Game Launcher Library\UE_4.24\Engine\Source\Runtime\Slate\Public\SlateOptMacros.h
+G:\Epic Game Launcher Library\UE_4.24\Engine\Source\Runtime\Slate\Public\Widgets/Layout/SUniformGridPanel.h
+I:/Caterpillar/Plugins/VOX4U/Source/VOX4UEditor/Private/Vox.cpp
 I:/Caterpillar/Plugins/VOX4U/Source/VOX4UEditor/Private/VOX4UEditor.cpp
 I:\Caterpillar\Plugins\VOX4U\Source\VOX4UEditor\Public\VOX4UEditor.h
 G:\Epic Game Launcher Library\UE_4.24\Engine\Source\Developer\AssetTools\Public\IAssetTypeActions.h
@@ -45,6 +50,11 @@ G:\Epic Game Launcher Library\UE_4.24\Engine\Intermediate\Build\Win64\UE4Editor\
 G:\Epic Game Launcher Library\UE_4.24\Engine\Source\Editor\UnrealEd\Classes\ThumbnailRendering/DefaultSizedThumbnailRenderer.h
 G:\Epic Game Launcher Library\UE_4.24\Engine\Intermediate\Build\Win64\UE4Editor\Inc\UnrealEd\DefaultSizedThumbnailRenderer.generated.h
 I:\Caterpillar\Plugins\VOX4U\Intermediate\Build\Win64\UE4Editor\Inc\VOX4UEditor\VoxelThumbnailRenderer.generated.h
+I:/Caterpillar/Plugins/VOX4U/Source/VOX4UEditor/Private/VoxAssetImportData.cpp
+i:\caterpillar\plugins\vox4u\source\vox4ueditor\private\VoxAssetImportData.h
+G:\Epic Game Launcher Library\UE_4.24\Engine\Source\Runtime\Engine\Classes\EditorFramework/AssetImportData.h
+G:\Epic Game Launcher Library\UE_4.24\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\AssetImportData.generated.h
+I:\Caterpillar\Plugins\VOX4U\Intermediate\Build\Win64\UE4Editor\Inc\VOX4UEditor\VoxAssetImportData.generated.h
 I:/Caterpillar/Plugins/VOX4U/Source/VOX4UEditor/Private/VoxelActorFactory.cpp
 i:\caterpillar\plugins\vox4u\source\vox4ueditor\private\VoxelActorFactory.h
 G:\Epic Game Launcher Library\UE_4.24\Engine\Source\Editor\UnrealEd\Classes\ActorFactories/ActorFactory.h
@@ -62,3 +72,5 @@ G:\Epic Game Launcher Library\UE_4.24\Engine\Source\Editor\UnrealEd\Classes\Thum
 G:\Epic Game Launcher Library\UE_4.24\Engine\Source\Runtime/Engine/Classes/EditorFramework/ThumbnailInfo.h
 G:\Epic Game Launcher Library\UE_4.24\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\ThumbnailInfo.generated.h
 G:\Epic Game Launcher Library\UE_4.24\Engine\Intermediate\Build\Win64\UE4Editor\Inc\UnrealEd\SceneThumbnailInfo.generated.h
+I:/Caterpillar/Plugins/VOX4U/Source/VOX4UEditor/Private/VoxImportOption.cpp
+G:\Epic Game Launcher Library\UE_4.24\Engine\Source\Editor\MainFrame\Public\Interfaces/IMainFrameModule.h
